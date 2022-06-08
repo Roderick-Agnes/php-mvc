@@ -11,18 +11,16 @@ class Home extends Controller{
 
     }
 
-    function Show($a, $b){        
+    function Index(){        
         // Call Models
-        $teo = $this->model("SinhVienModel");
-        $tong = $teo->Tong($a, $b); // 3
+        //$teo = $this->model("SinhVienModel");
+        //$tong = $teo->Tong($a, $b); // 3
 
         // Call Views
-        $this->view("aodep", [
-            "Page"=>"news",
-            "Number"=>$tong,
-            "Mau"=>"red",
-            "SoThich"=>["A", "B", "C"],
-            "SV" => $teo->SinhVien()
+        $this->view("layoutRoot", [
+            "Header" => "header",
+            "Navbar" => "navbar",
+            "Footer" => "footer"
         ]);
     }
 }
