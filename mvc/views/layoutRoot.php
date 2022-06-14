@@ -1,12 +1,8 @@
-<?php require "components/" . $component['Header'] . ".php" ?>
+<?php require "components/header.php" ?>
 
 
 <body class="goto-here">
-	<?php require "components/" . $component['Navbar'] . ".php" ?>
-
-
-
-
+	<?php require "components/navbar.php" ?>
 
 	<section id="home-section" class="hero">
 		<div class="home-slider owl-carousel">
@@ -583,14 +579,15 @@
 
 
 		<!-- loader -->
-		<!-- <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+		<div id="ftco-loader" class="show fullscreen">
+			<svg class="circular" width="48px" height="48px">
 				<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
 				<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
 			</svg>
-		</div> -->
+		</div>
 
 
-		<?php require_once "components/" . $component["Footer"] . ".php" ?>
+		<?php require_once "components/footer.php" ?>
 
 
 </body>

@@ -14,4 +14,3 @@ class SinhVienModel extends DB{
     }
 
 }
-?>
