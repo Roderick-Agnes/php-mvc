@@ -2,8 +2,14 @@
 <html lang="en">
 <?php
 $base_url = "http://" . $_SERVER['SERVER_NAME'] . "/" . "php-mvc/";
+$assets_url = "public/assets/";
+
 $css_url = "public/assets/css/";
 $main_css_url = $base_url . $css_url;
+
+$js_url = "public/assets/js/";
+$main_js_url = $base_url . $js_url;
+
 ?>
 
 <head>

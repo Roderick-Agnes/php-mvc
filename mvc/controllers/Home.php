@@ -23,13 +23,19 @@ class Home extends Controller
 
     function Index()
     {
-        // Call Models
-        //$teo = $this->model("SinhVienModel");
-        //$tong = $teo->Tong($a, $b); // 3
+        //require models
+        require_once "./mvc/models/food.php";
+        //Call Models
+        $db = new Database();
+        $food = new Food($db);
+        $foodList = $food->getFoodList();
+
+        //$foodList = $this->model("Food");
 
         // Call Views
         $this->view("layoutRoot", [
-            "Navbar" => "navbar"
+            "Page" => "index",
+            "FoodList" => $foodList
         ]);
     }
 }
