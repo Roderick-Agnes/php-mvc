@@ -1,9 +1,11 @@
 <?php
-include_once('./core/DB.php');
+require_once "./mvc/config/dbconnect.php";
+require_once "./mvc/config/dbhelper.php";
 class Category
 {
     private $id;
     private $categoryName;
+    private $categoryImage;
     private $createDate;
     private $updateDate;
 
@@ -13,18 +15,34 @@ class Category
     {
         $this->conn = $db;
     }
-    public function getCategoryList()
+    public function getCategoryList($isSingleRecord = false)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM category");
-        $stmt->execute();
-        return $stmt;
+        $query = "SELECT * FROM category";
+        $data = executeResult($query);
+        if ($isSingleRecord) {
+            $categoryList = array(
+                "categoryLeft" => [],
+                "categoryRight" => []
+            );
+            $dataLength = count($data);
+
+            // add category left into array
+            for ($i = 0; $i < $dataLength / 2; $i++) {
+                $item = $data[$i];
+                array_push($categoryList['categoryLeft'], $item);
+            }
+            // add category right into array
+            for ($i = $dataLength / 2; $i < $dataLength; $i++) {
+                $item = $data[$i];
+                array_push($categoryList['categoryRight'], $item);
+            }
+            return $categoryList;
+        }
+        return $data;
     }
     public function getCategoriesById($id)
     {
         $query = "SELECT * FROM category WHERE id = " . $id;
-        $stmt = $this->conn->prepare($query);
-        //$stmt->bindParam(1, $id);
-        $stmt->execute();
-        return $stmt;
+        return executeResult($query, true);
     }
 }

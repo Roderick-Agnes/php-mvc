@@ -63,31 +63,20 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(<?php echo $base_url . $assets_url ?>images/category-1.jpg);">
-                            <div class="text px-3 py-1">
-                                <h2 class="mb-0"><a href="#">Rau củ</a></h2>
-                            </div>
-                        </div>
-                        <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(<?php echo $base_url . $assets_url ?>images/category-2.jpg);">
-                            <div class="text px-3 py-1">
-                                <h2 class="mb-0"><a href="#">Trái cây</a></h2>
-                            </div>
-                        </div>
+                        <?php
+                        $categoryType = 'categoryLeft';
+                        require "category-item.php"
+                        ?>
+
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(<?php echo $base_url . $assets_url ?>images/category-3.jpg);">
-                    <div class="text px-3 py-1">
-                        <h2 class="mb-0"><a href="#">Nước trái cây</a></h2>
-                    </div>
-                </div>
-                <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(<?php echo $base_url . $assets_url ?>images/category-4.jpg);">
-                    <div class="text px-3 py-1">
-                        <h2 class="mb-0"><a href="#">Các loại đậu</a></h2>
-                    </div>
-                </div>
+                <?php
+                $categoryType = 'categoryRight';
+                require "category-item.php" ?>
+
             </div>
         </div>
     </div>

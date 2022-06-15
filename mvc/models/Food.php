@@ -20,17 +20,14 @@ class Food
     public function getFoodList()
     {
         $query = "SELECT * FROM food";
-        $data = executeResult($query);
-        return $data;
+        return executeResult($query);
     }
     public function getFoodById($id)
     {
         $query = "SELECT * FROM food WHERE id = " . $id;
-        $stmt = $this->conn->prepare($query);
-        //$stmt->bindParam(1, $id);
-        $stmt->execute();
-        return $stmt;
+        return executeResult($query, true);
     }
+    // edit more...
     public function getFoodByCategoryId($categoryId)
     {
         $query = "SELECT * FROM food WHERE categoryId = " . $categoryId;
