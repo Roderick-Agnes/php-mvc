@@ -1,3 +1,10 @@
+<?php
+$default_number = 8;
+$_SESSION['FoodList'] = array_slice($data['FoodList'], 0, $default_number);
+?>
+<?php require_once "./mvc/views/components/slider.php" ?>
+<?php require_once "./mvc/views/components/category.php" ?>
+
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center mb-3 pb-3">
@@ -12,11 +19,16 @@
         <div class="row">
 
             <?php
-            foreach ($data["FoodList"] as $item) {
+            foreach ($_SESSION['FoodList'] as $item) {
                 require "./mvc/views/components/food-item.php";
             }
             ?>
 
+        </div>
+        <div class="load-more ftco-animate">
+            <div class="text text-center">
+                <button class="btn btn-primary">Xem thêm</button>
+            </div>
         </div>
     </div>
 
@@ -38,7 +50,7 @@
                             <div class="testimony-wrap p-4 pb-5">
                                 <div class="user-img mb-5" style="background-image: url(public/assets/images/nhon.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
-                                        <i class="icon-quote-left"></i>
+                                        <em class="icon-quote-left"></em>
                                     </span>
                                 </div>
                                 <div class="text text-center">

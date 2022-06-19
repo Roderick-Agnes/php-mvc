@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-$base_url = "http://" . $_SERVER['SERVER_NAME'] . "/" . "php-mvc/";
+
+$base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['SERVER_NAME'] . "/" . "php-mvc/";
 $assets_url = "public/assets/";
 
 $css_url = "public/assets/css/";

@@ -54,11 +54,11 @@
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-6 order-md-last align-items-stretch d-flex">
-                        <div class="category-wrap-2 ftco-animate img align-self-stretch d-flex" style="background-image: url(<?php echo $base_url . $assets_url ?>images/category.jpg);">
+                        <div class="category-wrap-2 ftco-animate img align-self-stretch d-flex" style="background-image: url(<?php echo $base_url . $assets_url ?>images/category/category.jpg);">
                             <div class="text text-center">
                                 <h2>GreenFoods</h2>
                                 <p>Thức ăn tươi xanh cho mọi nhà</p>
-                                <p><a href="#" class="btn btn-primary">Mua ngay</a></p>
+                                <p><a href="<?php echo $base_url ?>product/shop" class="btn btn-primary">Mua ngay</a></p>
                             </div>
                         </div>
                     </div>

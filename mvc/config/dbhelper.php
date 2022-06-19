@@ -27,11 +27,9 @@ function executeResult($sql, $isSingleRecord = false)
 	$conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
 	mysqli_set_charset($conn, 'utf8');
 
-	// echo $sql;
 	//Xu ly cau query
 	$resultset = mysqli_query($conn, $sql);
-	// var_dump($resultset);
-	// die();
+
 	if ($isSingleRecord) {
 		$data = mysqli_fetch_array($resultset, 1);
 	} else {

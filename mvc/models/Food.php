@@ -28,11 +28,22 @@ class Food
         return executeResult($query, true);
     }
     // edit more...
-    public function getFoodByCategoryId($categoryId)
+    public function getFoodListByCategoryId($categoryId, $isArrayMultiple = false)
     {
-        $query = "SELECT * FROM food WHERE categoryId = " . $categoryId;
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
+        if ($isArrayMultiple) {
+            $query_get_all_category = "SELECT * FROM category";
+            $array_id_category = executeResult($query_get_all_category);
+            $multiCategories = array();
+            $multiCategories['categoryName'] = array();
+            $multiCategories['foodData'] = array();
+            foreach ($array_id_category as $category) {
+                array_push($multiCategories['categoryName'], $category['categoryName']);
+                $query = "SELECT * FROM food WHERE categoryId = " . $category['id'];
+                array_push($multiCategories['foodData'], executeResult($query));
+            }
+            return $multiCategories;
+        }
+        $query = "SELECT * FROM food WHERE categoryId = " . $categoryId . " LIMIT 4";
+        return executeResult($query); // return single category
     }
 }

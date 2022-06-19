@@ -1,26 +1,8 @@
 <?php
-
-// http://localhost/live/Home/Show/1/2
+require_once('./mvc/utils/utility.php');
 
 class Home extends Controller
 {
-
-    // Must have SayHi()
-    function SayHi()
-    {
-        // $teo = $this->model("SinhVienModel");
-        // echo $teo->GetSV();
-        echo "DAY LA sayhi ACTION";
-        $this->view(
-            "layoutRoot",
-            [
-                "Header" => "header",
-                "Navbar" => "navbar",
-                "Footer" => "footer"
-            ]
-        );
-    }
-
     function Index()
     {
         //require models
@@ -29,6 +11,7 @@ class Home extends Controller
         //Call Models
         $db = new Database();
         $food = new Food($db);
+
         $foodList = $food->getFoodList();
 
         $category = new Category($db);

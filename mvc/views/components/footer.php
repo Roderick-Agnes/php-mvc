@@ -134,3 +134,39 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script type="text/javascript" src="<?php echo $main_js_url ?>google-map.js?v=<?php echo time(); ?>"></script>
 <script type="text/javascript" src="<?php echo $main_js_url ?>main.js?v=<?php echo time(); ?>"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        var quantitiy = 0;
+        $('.quantity-right-plus').click(function(e) {
+
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            var quantity = parseInt($('#quantity').val());
+
+            // If is not undefined
+
+            $('#quantity').val(quantity + 1);
+
+
+            // Increment
+
+        });
+
+        $('.quantity-left-minus').click(function(e) {
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            var quantity = parseInt($('#quantity').val());
+
+            // If is not undefined
+
+            // Increment
+            if (quantity > 1) {
+                $('#quantity').val(quantity - 1);
+            }
+        });
+
+    });
+</script>
