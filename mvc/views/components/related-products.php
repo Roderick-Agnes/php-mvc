@@ -11,12 +11,10 @@
     <div class="container">
         <div class="row">
             <?php
-            foreach ($data['RelatedFoods'] as $item) {
-                require "./mvc/views/components/food-item.php";
-            }
+                foreach ($data['RelatedFoods'] as $item) {
+                    require "./mvc/views/components/food-item.php";
+                }
             ?>
-
-
         </div>
     </div>
 </section>

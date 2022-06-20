@@ -1,4 +1,8 @@
 <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $page_number = $_POST["page_number"];
+    echo "so trang: ". $page_number;
+}
 echo "<div class='row mt-5'>
 <div class='col text-center'>
     <div class='block-27'>
@@ -6,7 +10,7 @@ echo "<div class='row mt-5'>
 
 // button for first page
 if ($page > 1) {
-    echo "<li><a href='{$page_url}' title='Go to the first page.'>";
+    echo "<li><a href='".$base_url."product/shop/t=".$tabType."/page=1"."' title='Go to the first page.'>";
     echo "First";
     echo "</a></li>";
 }
@@ -27,19 +31,19 @@ for ($x = $initial_num; $x < $condition_limit_num; $x++) {
 
         // current page
         if ($x == $page) {
-            echo "<li class='active'><a href='javascript:void(0)'>$x <span class=\"sr-only\">(current)</span></a></li>";
+            echo "<li class='active cursor-pointer'><a href='javascript:void(0)'> $x<span class=\"sr-only\">(current)</span></a></li>";
         }
 
         // not current page
         else {
-            echo "<li><a href='?page=$x'>$x</a></li>";
+            echo "<li class='cursor-pointer'><a href='".$base_url."product/shop/t=".$tabType."/page=".$x."' onclick='handleGetPageNum(".$x.")'>$x</a></li>";
         }
     }
 }
 
 // button for last page
 if ($page < $total_pages) {
-    echo "<li><a href='?page={$total_pages}' title='Last page is {$total_pages}.'>";
+    echo "<li><a href='".$base_url."product/shop/t=".$tabType."/page=".$total_pages."' title='Last page is {$total_pages}.'>";
     echo "Last";
     echo "</a></li>";
 }

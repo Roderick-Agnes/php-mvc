@@ -1,6 +1,7 @@
 <?php
 $default_number = 8;
 $_SESSION['FoodList'] = array_slice($data['FoodList'], 0, $default_number);
+$_SESSION['CategoryList'] = $data['CategoryList'];
 ?>
 <?php require_once "./mvc/views/components/slider.php" ?>
 <?php require_once "./mvc/views/components/category.php" ?>
@@ -27,7 +28,7 @@ $_SESSION['FoodList'] = array_slice($data['FoodList'], 0, $default_number);
         </div>
         <div class="load-more ftco-animate">
             <div class="text text-center">
-                <button class="btn btn-primary">Xem thêm</button>
+                <button class="btn btn-primary" onclick="window.location.href='<?php echo $base_url.'product/shop/t='.rand(0,count($_SESSION['CategoryList'])).'/page=1' ?>'">Xem thêm</button>
             </div>
         </div>
     </div>
