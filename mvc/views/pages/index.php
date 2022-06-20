@@ -28,7 +28,7 @@ $_SESSION['CategoryList'] = $data['CategoryList'];
         </div>
         <div class="load-more ftco-animate">
             <div class="text text-center">
-                <button class="btn btn-primary" onclick="window.location.href='<?php echo $base_url.'product/shop/t='.rand(0,count($_SESSION['CategoryList'])).'/page=1' ?>'">Xem thêm</button>
+                <button class="btn btn-primary" onclick="window.location.href='<?php echo $base_url . 'product/shop/t=' . rand(0, count($_SESSION['CategoryList'])) . '/page=1' ?>'">Xem thêm</button>
             </div>
         </div>
     </div>
@@ -46,8 +46,8 @@ $_SESSION['CategoryList'] = $data['CategoryList'];
             </div>
             <div class="row ftco-animate">
                 <div class="col-md-12">
-                    <div class="carousel-testimony owl-carousel">
-                        <div class="item">
+                    <div class="owl-carousel">
+                        <div class="slider-card">
                             <div class="testimony-wrap p-4 pb-5">
                                 <div class="user-img mb-5" style="background-image: url(public/assets/images/nhon.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
@@ -62,56 +62,11 @@ $_SESSION['CategoryList'] = $data['CategoryList'];
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/assets/images/cuong.jpg)">
-                                    <span class="quote d-flex align-items-center justify-content-center">
-                                        <i class="icon-quote-left"></i>
-                                    </span>
-                                </div>
-                                <div class="text text-center">
-                                    <p class="mb-5 pl-4 line">Sản phẩm tốt chất lượng cao Sản phẩm tốt chất lượng cao
-                                        Sản phẩm tốt chất lượng cao </p>
-                                    <p class="name">Chan Cuong</p>
-                                    <span class="position">Developer-Backend</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/assets/images/cuong.jpg)">
-                                    <span class="quote d-flex align-items-center justify-content-center">
-                                        <i class="icon-quote-left"></i>
-                                    </span>
-                                </div>
-                                <div class="text text-center">
-                                    <p class="mb-5 pl-4 line">Sản phẩm tốt chất lượng cao Sản phẩm tốt chất lượng cao
-                                        Sản phẩm tốt chất lượng cao </p>
-                                    <p class="name">Chan Cuong</p>
-                                    <span class="position">Developer-Backend</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/assets/images/cuong.jpg)">
-                                    <span class="quote d-flex align-items-center justify-content-center">
-                                        <i class="icon-quote-left"></i>
-                                    </span>
-                                </div>
-                                <div class="text text-center">
-                                    <p class="mb-5 pl-4 line">Sản phẩm tốt chất lượng cao Sản phẩm tốt chất lượng cao
-                                        Sản phẩm tốt chất lượng cao </p>
-                                    <p class="name">Chan Cuong</p>
-                                    <span class="position">Developer-Backend</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
+                        <div class="slider-card">
                             <div class="testimony-wrap p-4 pb-5">
                                 <div class="user-img mb-5" style="background-image: url(public/assets/images/nhon.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
-                                        <i class="icon-quote-left"></i>
+                                        <em class="icon-quote-left"></em>
                                     </span>
                                 </div>
                                 <div class="text text-center">
@@ -122,6 +77,37 @@ $_SESSION['CategoryList'] = $data['CategoryList'];
                                 </div>
                             </div>
                         </div>
+                        <div class="slider-card">
+                            <div class="testimony-wrap p-4 pb-5">
+                                <div class="user-img mb-5" style="background-image: url(public/assets/images/nhon.jpg)">
+                                    <span class="quote d-flex align-items-center justify-content-center">
+                                        <em class="icon-quote-left"></em>
+                                    </span>
+                                </div>
+                                <div class="text text-center">
+                                    <p class="mb-5 pl-4 line">Sản phẩm tốt chất lượng cao Sản phẩm tốt chất lượng cao
+                                        Sản phẩm tốt chất lượng cao </p>
+                                    <p class="name">Thanh Nhon</p>
+                                    <span class="position">Developer-Frontend</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-card">
+                            <div class="testimony-wrap p-4 pb-5">
+                                <div class="user-img mb-5" style="background-image: url(public/assets/images/nhon.jpg)">
+                                    <span class="quote d-flex align-items-center justify-content-center">
+                                        <em class="icon-quote-left"></em>
+                                    </span>
+                                </div>
+                                <div class="text text-center">
+                                    <p class="mb-5 pl-4 line">Sản phẩm tốt chất lượng cao Sản phẩm tốt chất lượng cao
+                                        Sản phẩm tốt chất lượng cao </p>
+                                    <p class="name">Thanh Nhon</p>
+                                    <span class="position">Developer-Frontend</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

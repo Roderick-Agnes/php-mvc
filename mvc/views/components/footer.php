@@ -136,6 +136,29 @@
 <script type="text/javascript" src="<?php echo $main_js_url ?>main.js?v=<?php echo time(); ?>"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+        $(".owl-carousel").owlCarousel({
+            loop: true,
+            margin: 30,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 1400,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
 
         var quantitiy = 0;
         $('.quantity-right-plus').click(function(e) {

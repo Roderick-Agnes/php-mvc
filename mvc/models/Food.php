@@ -43,7 +43,7 @@ class Food
             }
             return $multiCategories;
         }
-        $query = "SELECT * FROM food WHERE categoryId = " . $categoryId . " LIMIT 4";
+        $query = "SELECT * FROM food WHERE categoryId = " . $categoryId . " ORDER BY categoryId DESC LIMIT 7";
         return executeResult($query); // return single category
     }
 }

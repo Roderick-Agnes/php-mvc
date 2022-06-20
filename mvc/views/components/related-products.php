@@ -10,11 +10,15 @@
     </div>
     <div class="container">
         <div class="row">
-            <?php
-                foreach ($data['RelatedFoods'] as $item) {
-                    require "./mvc/views/components/food-item.php";
+            <div class="owl-carousel">
+                <?php
+                $_SESSION['RelatedFoods'] = $data['RelatedFoods'];
+                foreach ($_SESSION['RelatedFoods'] as $key => $item) {
+                    require "./mvc/views/components/related-item.php";
                 }
-            ?>
+                ?>
+
+            </div>
         </div>
     </div>
 </section>
