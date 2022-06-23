@@ -11,6 +11,7 @@ $main_css_url = $base_url . $css_url;
 $js_url = "public/assets/js/";
 $main_js_url = $base_url . $js_url;
 
+$_SESSION['Cart'] = null;
 ?>
 
 <head>
@@ -32,4 +33,9 @@ $main_js_url = $base_url . $js_url;
     <link rel="stylesheet" href="<?php echo $main_css_url ?>flaticon.css" type=" text/css" media="all">
     <link rel="stylesheet" href="<?php echo $main_css_url ?>icomoon.css" type=" text/css" media="all">
     <link rel="stylesheet" href="<?php echo $main_css_url ?>style.css" type=" text/css" media="all">
+    <!-- ====== Fontawesome CDN Link ====== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="<?php echo $main_css_url ?>tata.css" type=" text/css" media="all">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" integrity="sha512-hwwdtOTYkQwW2sedIsbuP1h0mWeJe/hFOfsvNKpRB3CkRxq8EW7QMheec1Sgd8prYxGm1OM9OZcGW7/GUud5Fw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>

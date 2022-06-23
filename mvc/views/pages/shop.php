@@ -29,15 +29,6 @@ else{
     $tabType = 0;
 }
 
-// $page_url = "";
-// foreach ($array_url as $key => $value) {
-//     if ($key !== max(array_keys($array_url))) {
-//         $page_url .= $array_url[$key] . "/";
-//     } else {
-//         $page_url .= $array_url[$key];
-//     }
-// }
-
 // calculate for the query LIMIT clause
 $from_record_num = ($records_per_page * $page) - $records_per_page;
 

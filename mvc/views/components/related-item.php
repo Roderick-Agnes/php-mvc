@@ -1,4 +1,5 @@
 <?php
+$object = json_encode($item);
 echo "<div class='ftco-animate' style='box-shadow: 0 3px 5px 0 rgba(0,0,0,0.08);
 transition: box-shadow 0.3s ease-in-out;'>";
 echo "<div class='product'>";
@@ -18,7 +19,7 @@ echo "<div class='m-auto d-flex'>";
 echo "<a href='' class='add-to-cart d-flex justify-content-center align-items-center text-center'>";
 echo "<span><i class='ion-ios-menu'></i></span>";
 echo "</a>";
-echo "<a href='' class='buy-now d-flex justify-content-center align-items-center mx-1'>";
+echo "<a href='javascript:void(0)' onclick='addToCart(" . $object . ")' class='buy-now d-flex justify-content-center align-items-center mx-1'>";
 echo "<span><i class='ion-ios-cart'></i></span>";
 echo "</a>";
 echo "<a href='' class='heart d-flex justify-content-center align-items-center '>";

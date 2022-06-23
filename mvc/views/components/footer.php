@@ -116,8 +116,6 @@
 </div>
 
 
-
-
 <script type="text/javascript" src="<?php echo $main_js_url ?>jquery.min.js?v=<?php echo time(); ?>"></script>
 <script type="text/javascript" src="<?php echo $main_js_url ?>jquery-migrate-3.0.1.min.js?v=<?php echo time(); ?>"></script>
 <script type="text/javascript" src="<?php echo $main_js_url ?>popper.min.js?v=<?php echo time(); ?>"></script>
@@ -131,9 +129,12 @@
 <script type="text/javascript" src="<?php echo $main_js_url ?>jquery.animateNumber.min.js?v=<?php echo time(); ?>"></script>
 <script type="text/javascript" src="<?php echo $main_js_url ?>bootstrap-datepicker.js?v=<?php echo time(); ?>"></script>
 <script type="text/javascript" src="<?php echo $main_js_url ?>scrollax.min.js?v=<?php echo time(); ?>"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script type="text/javascript" src="<?php echo $main_js_url ?>google-map.js?v=<?php echo time(); ?>"></script>
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
+<!-- <script type="text/javascript" src="<php echo $main_js_url ?>google-map.js?v=<php echo time(); ?>"></script> -->
 <script type="text/javascript" src="<?php echo $main_js_url ?>main.js?v=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="<?php echo $main_js_url ?>tata.js?v=<?php echo time(); ?>"></script>
+
+
 <script type="text/javascript">
     $(document).ready(function() {
         $(".owl-carousel").owlCarousel({
@@ -156,6 +157,200 @@
             }
         });
     });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        totalItem();
+        const cartUrl = new URL("<?php echo $base_url . 'cart' ?>");
+        const checkoutUrl = new URL("<?php echo $base_url . 'cart/checkout' ?>");
+
+        if (window.location.href == cartUrl.toString()) {
+            handleShowItemsInCart();
+        } else if (window.location.href == checkoutUrl.toString()) {
+            handleShowDetailOrder();
+        }
+
+
+
+
+    });
+
+    let cart = [];
+    const addToCart = async (data) => {
+        let storage = localStorage.getItem('cart');
+        if (storage) {
+            console.log('storage exists');
+        } else {
+            console.log('storage is not found');
+        }
+        if (storage) {
+            cart = JSON.parse(storage);
+        }
+        if (cart.length > 0 || cart.length != null) {
+            let product = data;
+            console.log("data.id=" + data.id);
+            let item = cart.find(c => c.product.id == data.id);
+            if (item) {
+                item.quantity += 1;
+            } else {
+                cart.push({
+                    product,
+                    quantity: 1
+                })
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            //show toaster
+            tata.success(`${data.foodName}`, `Add '${data.foodName}' successfully`, {
+                position: 'tr'
+            });
+        }
+
+
+
+        //update total item
+        totalItem();
+
+
+    }
+
+    const totalItem = () => {
+        let storage = localStorage.getItem('cart');
+        const element = document.getElementById('totalItem');
+        let totalQuantity = 0;
+        if (storage) {
+            cart = JSON.parse(storage);
+            console.log("cart exist...");
+            cart.map(item => {
+                totalQuantity += item.quantity;
+            });
+            element.innerHTML = "<div id='item-cart'><span class='icon-shopping_cart'></span>[" + totalQuantity + "]</div>";
+        } else {
+            element.innerHTML = "<div id='item-cart'><span class='icon-shopping_cart'></span>[0]</div>";
+        }
+
+
+    }
+
+    const handleShowItemsInCart = async () => {
+        const cartContent = document.getElementById('cartContent');
+        const productTable = document.getElementById('productTable');
+        let storage = localStorage.getItem('cart');
+        if (storage) {
+            cart = JSON.parse(storage);
+        }
+        if (cart.length > 0) {
+            let html = ``;
+            await cart.map(item => {
+                console.log("data" + item);
+                const priceTotal = item.product.price * item.quantity;
+                html += `
+                    <tr class="text-center">
+                        <td class="product-remove"><a href="javascript:void(0)" onclick="handleRemoveItemInCart(${item.product.id})"><span class="ion-ios-close"></span></a></td>
+
+                        <td class="image-prod">
+                            <div class="img" style="background-image:url(<?php echo $base_url . $assets_url ?>images/food/${item.product.foodImage});"></div>
+                        </td>
+
+                        <td class="product-name">
+                            <h3>${item.product.foodName}</h3>
+                            <p>${item.product.foodDescription.slice(0, 50)}...</p>
+                        </td>
+
+                        <td class="price">${item.product.price}</td>
+
+                        <td class="quantity">
+                            <div class="input-group mb-3">
+                                <span class="input-group-btn mr-2">
+                                    <button type="button" onclick="handleDescQuantity(${item.product.id})" class="quantity-left-minus" data-type="minus" data-field="">
+                                        <em class="ion-ios-remove"></em>
+                                    </button>
+                                </span>
+                                <input type="text" id="quantity-${item.product.id}" name="quantity" class="form-control input-number" value="${item.quantity}" min="1" max="100">
+                                <span class="input-group-btn ml-2">
+
+                                    <button type="button" onclick="handleIncQuantity(${item.product.id})" class="quantity-right-plus" data-type="plus" data-field="">
+                                        <em class="ion-ios-add"></em>
+                                    </button>
+                                </span>
+                                
+                            </div>
+                        </td>
+
+                        <td class="total">${priceTotal}</td>
+                    </tr>
+                `;
+            });
+            const removeAllButton = `<tr class="text-center">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a class="btn btn-danger rounded text-white" onclick="handleRemoveAll()">Remove All</a></td>
+                </tr>`;
+            productTable.innerHTML = html + removeAllButton;
+            handleUpdateOrder();
+        } else {
+            renderEmptyCart();
+        }
+    }
+    const renderEmptyCart = () => {
+        const cartContent = document.getElementById('cartContent');
+        document.getElementById('cartRow').remove();
+        document.getElementById('cartBill').remove();
+        cartContent.innerHTML = `<?php require "./mvc/views/components/empty-cart.php"; ?>`;
+    }
+
+    const handleRemoveItemInCart = async (id) => {
+        let storage = localStorage.getItem('cart');
+        if (storage) {
+            cart = JSON.parse(storage);
+        }
+        if (cart.length > 0) {
+            //show toaster
+            let item = cart.find(c => c.product.id == id);
+            tata.warn(`Warning!`, `Delele '${item.product.foodName}' successfully`, {
+                position: 'tr'
+            });
+
+            cart = await cart.filter(item => item.product.id != id);
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            handleShowItemsInCart();
+            handleUpdateOrder();
+            totalItem();
+        } else {
+            renderEmptyCart();
+        }
+
+    }
+
+    const handleRemoveAll = () => {
+        swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this cart!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    localStorage.removeItem('cart');
+                    swal("Deleted!", "Your product has been deleted.", "success");
+                    renderEmptyCart();
+                    totalItem();
+                } else {
+                    swal("Cancelled", "Your product is safe :)", "error");
+                }
+            });
+    }
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -191,5 +386,191 @@
             }
         });
 
+
+
     });
+
+    function handleIncQuantity(id) {
+        var quantity = parseInt($('#quantity-' + id).val());
+
+        // If is not undefined
+
+        $('#quantity-' + id).val(quantity + 1);
+
+        // Increment
+
+        updateQuantity(id);
+        handleUpdateOrder();
+    }
+
+    function handleDescQuantity(id) {
+        var quantity = parseInt($('#quantity-' + id).val());
+
+        // If is not undefined
+
+        // descrement
+        if (quantity > 1) {
+            $('#quantity-' + id).val(quantity - 1);
+        }
+
+        updateQuantity(id);
+        handleUpdateOrder();
+    }
+
+    function updateQuantity(id) {
+        let storage = localStorage.getItem('cart');
+        cart = JSON.parse(storage);
+        for (var i = 0; i < cart.length; ++i) {
+            if (cart[i]['product']['id'] == id) {
+                cart[i]['quantity'] = parseInt($('#quantity-' + id).val());
+            }
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        handleShowItemsInCart();
+        totalItem();
+    }
+</script>
+<!-- Cart Total -->
+<script>
+    const handleUpdateOrder = () => {
+        let storage = localStorage.getItem('cart');
+        if (storage) {
+            cart = JSON.parse(storage);
+        }
+        let moneyTotal = 0;
+        if (cart.length > 0) {
+            cart.map(item => {
+                moneyTotal += item.product.price * item.quantity;
+            });
+        }
+        handleRenderCartTotal(moneyTotal);
+
+    }
+    const handleFormatMoney = (money) => {
+        return money;
+    }
+
+    const handleRenderCartTotal = (money) => {
+        const cartTotal = document.getElementById('cart-total');
+        cartTotal.innerHTML = `
+            <div class='cart-total mb-3'>
+                <h3>Cart Totals</h3>
+                <p class='d-flex'>
+                    <span>Subtotal</span>
+                    <span>` + handleFormatMoney(money) + `</span>
+                </p>
+                <p class='d-flex'>
+                    <span>Delivery</span>
+                    <span>$0</span>
+                </p>
+                <p class='d-flex'>
+                    <span>Discount</span>
+                    <span>$0</span>
+                </p>
+                <hr>
+                <p class='d-flex total-price'>
+                    <span>Total</span>
+                    <span>` + handleFormatMoney(money) + `</span>
+                </p>
+            </div>
+            <p><a href="<?php echo $base_url . 'cart/checkout' ?>" class='btn btn-primary py-3 px-4'>Proceed to Checkout</a></p>
+        `;
+    }
+    const handleShowDetailOrder = () => {
+        let storage = localStorage.getItem('cart');
+        if (storage) {
+            cart = JSON.parse(storage);
+        }
+        let moneyTotal = 0;
+        if (cart.length > 0) {
+            cart.map(item => {
+                moneyTotal += item.product.price * item.quantity;
+            });
+        }
+        const cartTotal = document.getElementById('cart-total');
+        cartTotal.innerHTML = `
+            <div class="cart-detail cart-total p-3 p-md-4">
+                <h3 class="billing-heading mb-4">Cart Total</h3>
+                <p class="d-flex">
+                    <span>Subtotal</span>
+                    <span>` + handleFormatMoney(moneyTotal) + `</span>
+                </p>
+                <p class="d-flex">
+                    <span>Delivery</span>
+                    <span>$0.00</span>
+                </p>
+                <p class="d-flex">
+                    <span>Discount</span>
+                    <span>$0.00</span>
+                </p>
+                <hr>
+                <p class="d-flex total-price">
+                    <span>Total</span>
+                    <span>` + handleFormatMoney(moneyTotal) + `</span>
+                </p>
+            </div>
+        `;
+    }
+
+    const handlePayment = () => {
+        //payment method
+        let paymentMethod = 'home';
+        const radio = $("input[type=radio][name=pay_radio]").filter(":checked")[0];
+        if (radio) {
+            paymentMethod = radio.value;
+        }
+        //buyer information
+        const firstname = document.getElementById('firstname').value;
+        const lastname = document.getElementById('lastname').value;
+        const country = document.getElementById('country').value;
+        const city = document.getElementById('city').value;
+        const address = document.getElementById('address').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+
+        //order detail
+        let storage = localStorage.getItem('cart');
+        if (storage) {
+            cart = JSON.parse(storage);
+        }
+        let moneyTotal = 0;
+        const orderDecription = {
+            'moneyTotal': 0,
+            'data': [],
+            'buyer': {
+                'firstname': firstname,
+                'lastname': lastname,
+                'country': country,
+                'city': city,
+                'address': address,
+                'phone': phone,
+                'email': email
+            },
+            'paymentMethod': paymentMethod
+        };
+        if (cart.length > 0) {
+            cart.map(item => {
+                moneyTotal += item.product.price * item.quantity;
+                orderDecription.moneyTotal = moneyTotal;
+                orderDecription.data.push(item);
+
+            });
+        }
+        //call ajax
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $base_url ?>cart/handleSaveOrder",
+            data: {
+                order: orderDecription
+            },
+            cache: false,
+            // contentType: "application/json; charset=utf-8",
+            // dataType: "json",
+            success: function(data) {
+                const result = JSON.parse(data);
+                console.log(result.message);
+            }
+        });
+    }
 </script>

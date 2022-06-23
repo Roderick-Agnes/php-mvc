@@ -1,4 +1,5 @@
 <?php
+$object = json_encode($item);
 echo "<div class='col-md-6 col-lg-3 ftco-animate'>";
 echo "<div class='product'>";
 echo "<a href='" . $base_url . "product/detail/" . $item['id'] . "' class='img-prod'><img class='img-fluid' accept='image/*' src='" . $base_url . $assets_url . "images/food/" . $item['foodImage'] . "' alt='Colorlib Template'>";
@@ -17,7 +18,7 @@ echo "<div class='m-auto d-flex'>";
 echo "<a href='' class='add-to-cart d-flex justify-content-center align-items-center text-center'>";
 echo "<span><i class='ion-ios-menu'></i></span>";
 echo "</a>";
-echo "<a href='' class='buy-now d-flex justify-content-center align-items-center mx-1'>";
+echo "<a href='javascript:void(0)' onclick='addToCart(" . $object . ")' class='buy-now d-flex justify-content-center align-items-center mx-1'>";
 echo "<span><i class='ion-ios-cart'></i></span>";
 echo "</a>";
 echo "<a href='' class='heart d-flex justify-content-center align-items-center '>";

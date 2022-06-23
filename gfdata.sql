@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 15, 2022 at 12:26 PM
+-- Generation Time: Jun 24, 2022 at 01:45 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -32,12 +32,23 @@ CREATE TABLE `bill` (
   `foodList` text COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `totalPrice` double NOT NULL,
   `paymentStatus` tinyint(1) NOT NULL,
+  `paymentMethod` text COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `customerName` varchar(20) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `customerPhone` int(10) NOT NULL,
+  `customerPhone` varchar(10) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `customerAddress` text COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `customerEmail` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `customerCountry` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `customerCity` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `createDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `updateDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Dumping data for table `bill`
+--
+
+INSERT INTO `bill` (`id`, `foodList`, `totalPrice`, `paymentStatus`, `paymentMethod`, `customerName`, `customerPhone`, `customerAddress`, `customerEmail`, `customerCountry`, `customerCity`, `createDate`, `updateDate`) VALUES
+(3, '<p>1 - Ức gà, price: 43500, quantity: 4, priceTotal: 174000</p><p>2 - Thịt sườn non, price: 109000, quantity: 3, priceTotal: 327000</p>', 501000, 0, 'vnpay', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Viet Nam', 'Bà Rịa - Vũng Tàu/Châu Đức', '2022-06-23 09:56:38', '2022-06-23 09:56:38');
 
 -- --------------------------------------------------------
 
@@ -207,7 +218,7 @@ ALTER TABLE `food`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `category`

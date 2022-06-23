@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="index.html">Product</a></span> <span>Product Single</span></p>
+                <p class="breadcrumbs"><span class="mr-2"><a href="">Home</a></span> <span class="mr-2"><a href="">Product</a></span> <span>Product Single</span></p>
                 <h1 class="mb-0 bread">Product Single</h1>
             </div>
         </div>
@@ -34,6 +34,7 @@
                     </p>
                 </div>
                 <hr />
+
                 <p class="price"><span><?php echo $data['Food']['price'] ?><sup>vnd</sup></span></p>
                 <p><?php echo $data['Food']['foodDescription'] ?></p>
                 <div class="row mt-4">
@@ -59,6 +60,7 @@
                         </span>
                         <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
                         <span class="input-group-btn ml-2">
+
                             <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
                                 <em class="ion-ios-add"></em>
                             </button>
@@ -69,7 +71,10 @@
                         <p style="color: #000;">600 kg available</p>
                     </div>
                 </div>
-                <p><a href="cart.html" class="btn btn-black py-3 px-5">Add to Cart</a></p>
+                <?php $object = json_encode($data['Food']);
+                echo "<p><a href='javascript:void(0)' onclick='addToCart(" . $object . ")' class='btn btn-black py-3 px-5'>Add to Cart</a></p>"
+                ?>
+
             </div>
         </div>
     </div>
