@@ -537,6 +537,7 @@
         let moneyTotal = 0;
         const orderDecription = {
             'moneyTotal': 0,
+            'orderId' : <?php echo date("YmdHis") ?>,
             'data': [],
             'buyer': {
                 'firstname': firstname,
@@ -565,12 +566,25 @@
                 order: orderDecription
             },
             cache: false,
-            // contentType: "application/json; charset=utf-8",
-            // dataType: "json",
             success: function(data) {
                 const result = JSON.parse(data);
-                console.log(result.message);
+                if(result.status_code == 200){
+                    console.log(result.message);
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo $base_url ?>cart/vnpay_create_payment",
+                        data: {
+                            order: orderDecription
+                        },
+                        cache: false,
+                        success: function(data) {
+                            
+                        }
+                    });
+                }
+                
             }
         });
+        
     }
 </script>

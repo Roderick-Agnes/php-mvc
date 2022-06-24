@@ -49,12 +49,16 @@ class Bill
         $customerEmail = $order['buyer']['email'];
         $customerCountry = $order['buyer']['country'];
         $customerCity = $order['buyer']['city'];
+        $orderId = $order['orderId'];
 
         // complete foodList properties
 
-        $query = "INSERT INTO bill (`foodList`, `totalPrice`, `paymentStatus`, `paymentMethod`, `customerName`, `customerPhone`, `customerAddress`, `customerEmail`, `customerCountry`, `customerCity`) VALUES" .
-            "('" . $foodList . "', '" . $priceTotal . "', '" . $paymentStatus . "', '" . $paymentMethod . "', '" . $customerName . "', '" . $customerPhone . "', '" . $customerAddress . "', '" . $customerEmail . "', '" . $customerCountry . "', '" . $customerCity . "')";
+        $query = "INSERT INTO bill (`id`,`foodList`, `totalPrice`, `paymentStatus`, `paymentMethod`, `customerName`, `customerPhone`, `customerAddress`, `customerEmail`, `customerCountry`, `customerCity`) VALUES" .
+            "('" . $orderId . "', '" . $foodList . "', '" . $priceTotal . "', '" . $paymentStatus . "', '" . $paymentMethod . "', '" . $customerName . "', '" . $customerPhone . "', '" . $customerAddress . "', '" . $customerEmail . "', '" . $customerCountry . "', '" . $customerCity . "')";
         execute($query);
-        return 'Order saved successfully';
+        return array(
+            "desc" => $foodList,
+            "message" => 'Order saved successfully'
+        );
     }
 }

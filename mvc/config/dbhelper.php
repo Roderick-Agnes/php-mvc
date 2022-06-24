@@ -1,5 +1,5 @@
 <?php
-require_once('dbconfig.php');
+require_once('config.php');
 
 /**
  * Su dung voi cau lenh query: insert, update, delete -> ko tra ve ket qua.
