@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2022 at 01:45 AM
+-- Generation Time: Jun 25, 2022 at 05:46 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bill` (
-  `id` int(11) NOT NULL,
+  `id` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `foodList` text COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `totalPrice` double NOT NULL,
   `paymentStatus` tinyint(1) NOT NULL,
@@ -39,6 +39,7 @@ CREATE TABLE `bill` (
   `customerEmail` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `customerCountry` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `customerCity` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `payDate` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `createDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `updateDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
@@ -47,8 +48,15 @@ CREATE TABLE `bill` (
 -- Dumping data for table `bill`
 --
 
-INSERT INTO `bill` (`id`, `foodList`, `totalPrice`, `paymentStatus`, `paymentMethod`, `customerName`, `customerPhone`, `customerAddress`, `customerEmail`, `customerCountry`, `customerCity`, `createDate`, `updateDate`) VALUES
-(3, '<p>1 - Ức gà, price: 43500, quantity: 4, priceTotal: 174000</p><p>2 - Thịt sườn non, price: 109000, quantity: 3, priceTotal: 327000</p>', 501000, 0, 'vnpay', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Viet Nam', 'Bà Rịa - Vũng Tàu/Châu Đức', '2022-06-23 09:56:38', '2022-06-23 09:56:38');
+INSERT INTO `bill` (`id`, `foodList`, `totalPrice`, `paymentStatus`, `paymentMethod`, `customerName`, `customerPhone`, `customerAddress`, `customerEmail`, `customerCountry`, `customerCity`, `payDate`, `createDate`, `updateDate`) VALUES
+('20220625095228', '<p>1 - Thịt heo ba rọi, price: 96000, quantity: 3, priceTotal: 288000</p><p>2 - Thịt sườn cốt, price: 82000, quantity: 1, priceTotal: 82000</p><p>3 - Chân giò, price: 65000, quantity: 8, priceTotal: 520000</p>', 890000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Chad', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 02:52:49', '2022-06-25 02:52:49'),
+('20220625100438', '<p>1 - Bắp mỹ, price: 17000, quantity: 1, priceTotal: 17000</p>', 17000, 1, 'ATM(NCB)', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Cameroon', 'Bà Rịa - Vũng Tàu/Châu Đức', '20220625100501', '2022-06-25 03:04:44', '2022-06-25 03:04:44'),
+('20220625100808', '<p>1 - Chân giò, price: 65000, quantity: 1, priceTotal: 65000</p><p>2 - Móng giò, price: 74000, quantity: 3, priceTotal: 222000</p>', 287000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Burkina Faso', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:08:15', '2022-06-25 03:08:15'),
+('20220625101041', '<p>1 - Bầu, price: 11000, quantity: 1, priceTotal: 11000</p>', 11000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Equatorial Guinea', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:10:48', '2022-06-25 03:10:48'),
+('20220625101115', '<p>1 - Bắp cải, price: 12500, quantity: 1, priceTotal: 12500</p><p>2 - Bắp mỹ, price: 17000, quantity: 1, priceTotal: 17000</p><p>3 - Bầu, price: 11000, quantity: 1, priceTotal: 11000</p>', 40500, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Chad', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:11:23', '2022-06-25 03:11:23'),
+('20220625101154', '<p>1 - Bầu, price: 11000, quantity: 1, priceTotal: 11000</p><p>2 - Bí đỏ, price: 21000, quantity: 1, priceTotal: 21000</p>', 32000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Cabo Verde', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:12:00', '2022-06-25 03:12:00'),
+('20220625101245', '<p>1 - Bí đỏ, price: 21000, quantity: 1, priceTotal: 21000</p>', 21000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Congo (the Democratic Republic of the)', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:12:51', '2022-06-25 03:12:51'),
+('20220625101339', '<p>1 - Bông súng, price: 13000, quantity: 1, priceTotal: 13000</p><p>2 - Cà chua bi, price: 8000, quantity: 1, priceTotal: 8000</p>', 21000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Burundi', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:13:46', '2022-06-25 03:13:46');
 
 -- --------------------------------------------------------
 
@@ -213,12 +221,6 @@ ALTER TABLE `food`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `bill`
---
-ALTER TABLE `bill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `category`

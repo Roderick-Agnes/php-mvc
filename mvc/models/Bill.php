@@ -17,9 +17,8 @@ class Bill
 
     public $conn;
 
-    public function __construct($db)
+    public function __construct()
     {
-        $this->conn = $db;
     }
     public function getAllOrder()
     {
@@ -28,9 +27,10 @@ class Bill
 
         return $stmt;
     }
-    public function getOrderById()
+    public function getOrderById($id)
     {
-        return 0;
+        $query = "SELECT * FROM bill WHERE `id` = '" . $id . "'";
+        return executeResult($query, true);
     }
     public function saveOrder($order)
     {
@@ -53,12 +53,15 @@ class Bill
 
         // complete foodList properties
 
-        $query = "INSERT INTO bill (`id`,`foodList`, `totalPrice`, `paymentStatus`, `paymentMethod`, `customerName`, `customerPhone`, `customerAddress`, `customerEmail`, `customerCountry`, `customerCity`) VALUES" .
-            "('" . $orderId . "', '" . $foodList . "', '" . $priceTotal . "', '" . $paymentStatus . "', '" . $paymentMethod . "', '" . $customerName . "', '" . $customerPhone . "', '" . $customerAddress . "', '" . $customerEmail . "', '" . $customerCountry . "', '" . $customerCity . "')";
+        $query = "INSERT INTO bill (`id`,`foodList`, `totalPrice`, `paymentStatus`, `paymentMethod`, `customerName`, `customerPhone`, `customerAddress`, `customerEmail`, `customerCountry`, `customerCity`, `payDate`) VALUES" . "('" . $orderId . "', '" . $foodList . "', '" . $priceTotal . "', '" . $paymentStatus . "', '" . $paymentMethod . "', '" . $customerName . "', '" . $customerPhone . "', '" . $customerAddress . "', '" . $customerEmail . "', '" . $customerCountry . "', '" . $customerCity . "', '')";
         execute($query);
         return array(
             "desc" => $foodList,
             "message" => 'Order saved successfully'
         );
+    }
+    public function updateStatusOrder($query)
+    {
+        execute($query);
     }
 }

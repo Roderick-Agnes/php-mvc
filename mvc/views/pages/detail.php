@@ -38,41 +38,14 @@
                 <p class="price"><span><?php echo $data['Food']['price'] ?><sup>vnd</sup></span></p>
                 <p><?php echo $data['Food']['foodDescription'] ?></p>
                 <div class="row mt-4">
-                    <div class="col-md-6">
-                        <div class="form-group d-flex">
-                            <div class="select-wrap">
-                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                <select name="" id="" class="form-control">
-                                    <option value="">Small</option>
-                                    <option value="">Medium</option>
-                                    <option value="">Large</option>
-                                    <option value="">Extra Large</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="input-group col-md-6 d-flex mb-3">
-                        <span class="input-group-btn mr-2">
-                            <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
-                                <em class="ion-ios-remove"></em>
-                            </button>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-                        <span class="input-group-btn ml-2">
 
-                            <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-                                <em class="ion-ios-add"></em>
-                            </button>
-                        </span>
-                    </div>
                     <div class="w-100"></div>
                     <div class="col-md-12">
-                        <p style="color: #000;">600 kg available</p>
+                        <!-- <p style="color: #000;">600 kg available</p> -->
                     </div>
                 </div>
                 <?php $object = json_encode($data['Food']);
-                echo "<p><a href='javascript:void(0)' onclick='addToCart(" . $object . ")' class='btn btn-black py-3 px-5'>Add to Cart</a></p>"
+                echo "<p><a href='javascript:void(0)' onclick='addToCart(" . $object . ")' class='btn btn-outline-success py-3 px-5'>Add to Cart</a></p>"
                 ?>
 
             </div>

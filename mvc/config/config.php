@@ -12,14 +12,13 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['SERVER_NAME'] . "/" . "php-mvc/";
-$vnp_TmnCode = "NQSZKL54"; //Website ID in VNPAY System
-$vnp_HashSecret = "GKALXHZKMGCMOMLEKNCZJXMIYXCEXXDC"; //Secret key
-$vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-$vnp_Returnurl = "http://localhost/".$base_url."/vnpay_return.php";
-$vnp_apiUrl = "http://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
+define('VNP_HASHSECRET', 'GKALXHZKMGCMOMLEKNCZJXMIYXCEXXDC');
+define('VNP_TMNCODE', 'NQSZKL54');
+define('VNP_URL', 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html');
+define('VNP_RETURNURL', "http://localhost/php-mvc/mvc/vnpay_php/vnpay_return.php");
+define('VNP_APIURL', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html');
 //Config input format
 //Expire
 $startTime = date("YmdHis");
-$expire = date('YmdHis', strtotime('+15 minutes', strtotime($startTime)));
+define('EXPIRE', date('YmdHis', strtotime('+15 minutes', strtotime($startTime))));

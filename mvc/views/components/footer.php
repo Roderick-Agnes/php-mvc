@@ -134,7 +134,6 @@
 <script type="text/javascript" src="<?php echo $main_js_url ?>main.js?v=<?php echo time(); ?>"></script>
 <script type="text/javascript" src="<?php echo $main_js_url ?>tata.js?v=<?php echo time(); ?>"></script>
 
-
 <script type="text/javascript">
     $(document).ready(function() {
         $(".owl-carousel").owlCarousel({
@@ -259,7 +258,7 @@
                             <p>${item.product.foodDescription.slice(0, 50)}...</p>
                         </td>
 
-                        <td class="price">${item.product.price}</td>
+                        <td class="price">` + handleFormatMoney(item.product.price) + `</td>
 
                         <td class="quantity">
                             <div class="input-group mb-3">
@@ -279,7 +278,7 @@
                             </div>
                         </td>
 
-                        <td class="total">${priceTotal}</td>
+                        <td class="total">` + handleFormatMoney(priceTotal) + `</td>
                     </tr>
                 `;
             });
@@ -329,27 +328,44 @@
     }
 
     const handleRemoveAll = () => {
-        swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this cart!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonClass: "btn-danger",
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel plx!",
-                closeOnConfirm: false,
-                closeOnCancel: false
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
             },
-            function(isConfirm) {
-                if (isConfirm) {
-                    localStorage.removeItem('cart');
-                    swal("Deleted!", "Your product has been deleted.", "success");
-                    renderEmptyCart();
-                    totalItem();
-                } else {
-                    swal("Cancelled", "Your product is safe :)", "error");
-                }
-            });
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You will not be able to recover this cart!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem('cart');
+                renderEmptyCart();
+                totalItem();
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your product has been deleted.',
+                    'success'
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your product is safe :)',
+                    'error'
+                )
+            }
+        })
+
     }
 </script>
 <script type="text/javascript">
@@ -448,7 +464,10 @@
 
     }
     const handleFormatMoney = (money) => {
-        return money;
+        return money.toLocaleString('it-IT', {
+            style: 'currency',
+            currency: 'VND'
+        });
     }
 
     const handleRenderCartTotal = (money) => {
@@ -462,11 +481,11 @@
                 </p>
                 <p class='d-flex'>
                     <span>Delivery</span>
-                    <span>$0</span>
+                    <span>0</span>
                 </p>
                 <p class='d-flex'>
                     <span>Discount</span>
-                    <span>$0</span>
+                    <span>0</span>
                 </p>
                 <hr>
                 <p class='d-flex total-price'>
@@ -498,11 +517,11 @@
                 </p>
                 <p class="d-flex">
                     <span>Delivery</span>
-                    <span>$0.00</span>
+                    <span>0</span>
                 </p>
                 <p class="d-flex">
                     <span>Discount</span>
-                    <span>$0.00</span>
+                    <span>0</span>
                 </p>
                 <hr>
                 <p class="d-flex total-price">
@@ -520,6 +539,7 @@
         if (radio) {
             paymentMethod = radio.value;
         }
+
         //buyer information
         const firstname = document.getElementById('firstname').value;
         const lastname = document.getElementById('lastname').value;
@@ -535,9 +555,11 @@
             cart = JSON.parse(storage);
         }
         let moneyTotal = 0;
+        const orderId = <?php echo date("YmdHis") ?>;
+        console.log(" orderId first: " + orderId);
         const orderDecription = {
             'moneyTotal': 0,
-            'orderId' : <?php echo date("YmdHis") ?>,
+            'orderId': orderId,
             'data': [],
             'buyer': {
                 'firstname': firstname,
@@ -568,23 +590,30 @@
             cache: false,
             success: function(data) {
                 const result = JSON.parse(data);
-                if(result.status_code == 200){
-                    console.log(result.message);
-                    $.ajax({
-                        type: "POST",
-                        url: "<?php echo $base_url ?>cart/vnpay_create_payment",
-                        data: {
-                            order: orderDecription
-                        },
-                        cache: false,
-                        success: function(data) {
-                            
-                        }
-                    });
+                if (result.status_code == 200) {
+                    console.log(" orderId: " + orderId);
+                    if (paymentMethod == 'home') {
+                        window.location.href = "<?php echo $base_url ?>" + "mvc/vnpay/vnpay_return.php?payAtHome=true";
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo $base_url ?>" + "mvc/vnpay/vnpay_create_payment.php",
+                            data: {
+                                desc: result.desc,
+                                order: orderDecription
+                            },
+                            cache: false,
+                            success: function(data) {
+                                const res = JSON.parse(data);
+                                window.location.href = res.data;
+                            }
+                        });
+                    }
+
                 }
-                
+
             }
         });
-        
+
     }
 </script>
