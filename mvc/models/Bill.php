@@ -38,8 +38,8 @@ class Bill
         $foodList = '';
 
         foreach ($order['data'] as $key => $item) {
-            $foodList .= '<p>' . $key + 1 . ' - ' . $item['product']['foodName'] . ', price: ' .
-                $item['product']['price'] . ', quantity: ' . $item['quantity'] . ', priceTotal: ' . $item['product']['price'] * $item['quantity'] . '</p>';
+            $foodList .= '<p>' . (int)($key + 1) . ' - ' . $item['product']['foodName'] . ', price: ' .
+            (int)($item['product']['price']) . ', quantity: ' . (int)($item['quantity']) . ', priceTotal: ' . (int)($item['product']['price'] * $item['quantity']) . '</p>';
         }
         $paymentStatus = 0;
         $paymentMethod = $order['paymentMethod'];
