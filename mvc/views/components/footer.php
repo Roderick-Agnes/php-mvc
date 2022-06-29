@@ -258,7 +258,7 @@
                             <p>${item.product.foodDescription.slice(0, 50)}...</p>
                         </td>
 
-                        <td class="price">` + handleFormatMoney(item.product.price) + `</td>
+                        <td class="price">` + handleFormatMoney(parseInt(item.product.price)) + `</td>
 
                         <td class="quantity">
                             <div class="input-group mb-3">
