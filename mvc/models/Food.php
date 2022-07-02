@@ -1,22 +1,7 @@
 <?php
-require_once "./mvc/config/dbconnect.php";
 require_once "./mvc/config/dbhelper.php";
 class Food
 {
-    private $id;
-    private $foodName;
-    private $categoryId;
-    private $price;
-    private $foodDescription;
-    private $foodImage;
-    private $createDate;
-    private $updateDate;
-    public  $conn;
-
-    public function __construct($db)
-    {
-        $this->conn = $db->getConnection();
-    }
     public function getFoodList()
     {
         $query = "SELECT * FROM food";
@@ -45,5 +30,29 @@ class Food
         }
         $query = "SELECT * FROM food WHERE categoryId = " . $categoryId . " ORDER BY categoryId DESC LIMIT 7";
         return executeResult($query); // return single category
+    }
+    public function deleteFoodById($id)
+    {
+        $query = "DELETE FROM `food` WHERE id = " . $id;
+        return execute($query);
+    }
+    public static function createNewFood($object)
+    {
+        if (isset($object)) {
+            $query = "INSERT INTO `food`(`foodName`, `categoryId`, `price`, `foodDescription`, `foodImage`) 
+            VALUES ('" . $object['foodName'] . "','" . $object['categoryId'] . "','" . $object['price'] . "','" . $object['description'] . "','" . $object['image'] . "')";
+            execute($query);
+            return true;
+        }
+        return false;
+    }
+    public static function updateFood($object)
+    {
+        if (isset($object)) {
+            $query = "UPDATE `food` SET `foodName`='" . $object['foodName'] . "',`categoryId`='" . $object['categoryId'] . "',`price`='" . $object['price'] . "',`foodDescription`='" . $object['description'] . "',`foodImage`='" . $object['image'] . "',`updateDate`='" . date("Y-m-d H:i:s") . "' WHERE id = " . $object['foodId'];
+            execute($query);
+            return true;
+        }
+        return false;
     }
 }

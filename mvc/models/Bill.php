@@ -20,12 +20,10 @@ class Bill
     public function __construct()
     {
     }
-    public function getAllOrder()
+    public function getOrderList()
     {
-        $stmt = $this->conn->prepare("SELECT * FROM bill");
-        $stmt->execute();
-
-        return $stmt;
+        $query = "SELECT * FROM bill";
+        return executeResult($query);
     }
     public function getOrderById($id)
     {
@@ -36,10 +34,20 @@ class Bill
     {
         $priceTotal = $order['moneyTotal'];
         $foodList = '';
+        $array_food = array();
 
         foreach ($order['data'] as $key => $item) {
+            $new_info = array(
+                'key' => $key,
+                'foodName' => $item['product']['foodName'],
+                'price' => $item['product']['price'],
+                'quantity' => $item['quantity'],
+                'totalPrice'  => (int)($item['product']['price'] * $item['quantity'])
+            );
+
+            array_push($array_food, $new_info);
             $foodList .= '<p>' . (int)($key + 1) . ' - ' . $item['product']['foodName'] . ', price: ' .
-            (int)($item['product']['price']) . ', quantity: ' . (int)($item['quantity']) . ', priceTotal: ' . (int)($item['product']['price'] * $item['quantity']) . '</p>';
+                number_format((int)($item['product']['price']), 0, '', ',') . ' vnd, quantity: ' . (int)($item['quantity']) . ', priceTotal: ' . (int)($item['product']['price'] * $item['quantity']) . '</p>';
         }
         $paymentStatus = 0;
         $paymentMethod = $order['paymentMethod'];
@@ -53,7 +61,7 @@ class Bill
 
         // complete foodList properties
 
-        $query = "INSERT INTO bill (`id`,`foodList`, `totalPrice`, `paymentStatus`, `paymentMethod`, `customerName`, `customerPhone`, `customerAddress`, `customerEmail`, `customerCountry`, `customerCity`, `payDate`) VALUES" . "('" . $orderId . "', '" . $foodList . "', '" . $priceTotal . "', '" . $paymentStatus . "', '" . $paymentMethod . "', '" . $customerName . "', '" . $customerPhone . "', '" . $customerAddress . "', '" . $customerEmail . "', '" . $customerCountry . "', '" . $customerCity . "', '')";
+        $query = "INSERT INTO bill (`id`,`foodList`, `totalPrice`, `paymentStatus`, `paymentMethod`, `customerName`, `customerPhone`, `customerAddress`, `customerEmail`, `customerCountry`, `customerCity`, `payDate`) VALUES" . "('" . $orderId . "', '" . json_encode($array_food, JSON_UNESCAPED_UNICODE) . "', '" . $priceTotal . "', '" . $paymentStatus . "', '" . $paymentMethod . "', '" . $customerName . "', '" . $customerPhone . "', '" . $customerAddress . "', '" . $customerEmail . "', '" . $customerCountry . "', '" . $customerCity . "', '')";
         execute($query);
         return array(
             "desc" => $foodList,

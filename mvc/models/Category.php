@@ -1,5 +1,4 @@
 <?php
-require_once "./mvc/config/dbconnect.php";
 require_once "./mvc/config/dbhelper.php";
 class Category
 {
@@ -11,10 +10,7 @@ class Category
 
     private $conn;
 
-    public function __construct($db)
-    {
-        $this->conn = $db;
-    }
+
     public function getCategoryList($isSingleRecord = false)
     {
         $query = "SELECT * FROM category";
@@ -40,9 +36,33 @@ class Category
         }
         return $data;
     }
-    public function getCategoriesById($id)
+    public static function getCategoriesById($id)
     {
         $query = "SELECT * FROM category WHERE id = " . $id;
         return executeResult($query, true);
+    }
+    public function deleteCategoryById($id)
+    {
+        $query = "DELETE FROM `category` WHERE id = " . $id;
+        return execute($query);
+    }
+    public static function createNewCategory($object)
+    {
+        if (isset($object)) {
+            $query = "INSERT INTO `category`(`categoryName`, `categoryImage`) 
+            VALUES ('" . $object['categoryName'] . "','" . $object['image'] . "')";
+            execute($query);
+            return true;
+        }
+        return false;
+    }
+    public function updateCategory($object)
+    {
+        if (isset($object)) {
+            $query = "UPDATE `category` SET `categoryName`='" . $object['categoryName']  . "',`categoryImage`='" . $object['categoryImage'] . "',`updateDate`='" . date("Y-m-d H:i:s") . "' WHERE id = " . $object['categoryId'];
+            execute($query);
+            return true;
+        }
+        return false;
     }
 }

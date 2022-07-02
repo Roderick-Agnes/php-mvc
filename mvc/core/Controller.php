@@ -11,4 +11,12 @@ class Controller
     {
         require_once "./mvc/views/" . $view . ".php";
     }
+    public function getBaseUrl()
+    {
+        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['SERVER_NAME'] . "/" . "php-mvc/";
+    }
+    public function getAssetsUrl()
+    {
+        return "public/assets/";
+    }
 }
