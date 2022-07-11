@@ -1,25 +1,9 @@
 <?php
-require_once "./mvc/core/Database.php";
-class Customer extends Database
+require_once "./mvc/config/dbhelper.php";
+require_once "./mvc/config/config.php";
+require_once "./mvc/libs/jwt.php";
+class Customer
 {
-    private $id;
-    private $fullName;
-    private $email;
-    private $phone;
-    private $address;
-    private $sex;
-    private $username;
-    private $password;
-    private $token;
-    private $createDate;
-    private $updateDate;
-
-    private $conn;
-
-    public function __construct($db)
-    {
-        $this->conn = $db;
-    }
     public function getCustomerList()
     {
         $stmt = $this->conn->prepare("SELECT * FROM customer");
@@ -27,7 +11,74 @@ class Customer extends Database
 
         return $stmt;
     }
-    public function getCustomerById()
+    public function checkPassword($username, $password)
     {
+        $sql = "SELECT * FROM customer WHERE username = '" . $username . "'";
+        $user = executeResult($sql, true);
+        if ($user['password'] == $password) {
+            // $token = JWT::jsonEncode(JWT::encode($user, SECRET_KEY));
+            $data = [
+                'firstname' => $user['firstname'],
+                'lastname' => $user['lastname'],
+                'email' => $user['email'],
+                'phone' => $user['phone'],
+                'address' => $user['address']
+            ];
+            return array(
+                'status' => 'Ok',
+                'status_code' => '200',
+                'message' => 'Login successfully',
+                'data' => json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
+            );
+        }
+        return array(
+            'status' => 'Fail',
+            'status_code' => '400',
+            'message' => 'Password incorrect',
+            'token' => ''
+        );
+    }
+    public function createNewCustomer($firstname, $lastname, $email, $address, $phone, $gender, $username, $password)
+    {
+        $sql = "INSERT INTO `customer`(`firstname`, `lastname`, `email`, `phone`, `address`, `gender`, `username`, `password`) VALUES ('" . $firstname . "','" . $lastname . "','" . $email . "','" . $phone . "','" . $address . "','" . $gender . "','" . $username . "','" . $password . "')";
+        execute($sql);
+    }
+    public function isUserExist($username)
+    {
+        $sql = "SELECT * FROM customer WHERE username = '" . $username . "'";
+        $user = executeResult($sql);
+        if (count($user) > 0) {
+            return true;
+        }
+        return false;
+    }
+    public function convertTokenToString($token)
+    {
+        $rs = '';
+        for ($i = 0; $i < strlen($token) - 1; $i++) {
+            if ($i != 0 && $i != strlen($token) - 1) {
+                $rs .= $token[$i];
+            }
+        }
+        return $rs;
+    }
+    public function convertTokenToData($token)
+    {
+        // $stringToken = self::convertTokenToString($token);
+        return json_decode(JWT::jsonEncode(JWT::decode($token, SECRET_KEY)), true);
+    }
+    public function isTokenValid($username, $token)
+    {
+        $sql = "SELECT COUNT(*) FROM customer WHERE username = '" . $username . "' AND token = '" . $token . "'";
+        $user = executeResult($sql, true);
+        if ($user > 0) {
+            return true;
+        }
+        return false;
+    }
+    public function updateToken($username, $token)
+    {
+        $sql = "UPDATE `customer` SET `token`='" . $token . "' WHERE username = '" . $username . "'";
+        execute($sql);
     }
 }

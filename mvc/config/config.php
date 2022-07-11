@@ -5,6 +5,7 @@ define('PASSWORD', '');
 define('DATABASE', 'greenfood');
 
 define('MD5_PRIVATE_KEY', '2342kuhskdfsd23(&kusdhfjsgJYGJGsfdf384');
+define('SECRET_KEY', 'greenfood_secret');
 
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 /*
@@ -12,7 +13,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['SERVER_NAME'] . "/" . "php-mvc/";
+define('BASE_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['SERVER_NAME'] . "/" . "php-mvc/");
 define('VNP_HASHSECRET', 'GKALXHZKMGCMOMLEKNCZJXMIYXCEXXDC');
 define('VNP_TMNCODE', 'NQSZKL54');
 define('VNP_URL', 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html');

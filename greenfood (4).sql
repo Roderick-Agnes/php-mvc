@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2022 at 06:07 AM
+-- Generation Time: Jul 11, 2022 at 02:15 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -49,17 +49,12 @@ CREATE TABLE `bill` (
 --
 
 INSERT INTO `bill` (`id`, `foodList`, `totalPrice`, `paymentStatus`, `paymentMethod`, `customerName`, `customerPhone`, `customerAddress`, `customerEmail`, `customerCountry`, `customerCity`, `payDate`, `createDate`, `updateDate`) VALUES
-('20220625095228', '<p>1 - Thịt heo ba rọi, price: 96000, quantity: 3, priceTotal: 288000</p><p>2 - Thịt sườn cốt, price: 82000, quantity: 1, priceTotal: 82000</p><p>3 - Chân giò, price: 65000, quantity: 8, priceTotal: 520000</p>', 890000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Chad', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 02:52:49', '2022-06-25 02:52:49'),
-('20220625100438', '<p>1 - Bắp mỹ, price: 17000, quantity: 1, priceTotal: 17000</p>', 17000, 1, 'ATM(NCB)', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Cameroon', 'Bà Rịa - Vũng Tàu/Châu Đức', '20220625100501', '2022-06-25 03:04:44', '2022-06-25 03:04:44'),
-('20220625100808', '<p>1 - Chân giò, price: 65000, quantity: 1, priceTotal: 65000</p><p>2 - Móng giò, price: 74000, quantity: 3, priceTotal: 222000</p>', 287000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Burkina Faso', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:08:15', '2022-06-25 03:08:15'),
-('20220625101041', '<p>1 - Bầu, price: 11000, quantity: 1, priceTotal: 11000</p>', 11000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Equatorial Guinea', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:10:48', '2022-06-25 03:10:48'),
-('20220625101115', '<p>1 - Bắp cải, price: 12500, quantity: 1, priceTotal: 12500</p><p>2 - Bắp mỹ, price: 17000, quantity: 1, priceTotal: 17000</p><p>3 - Bầu, price: 11000, quantity: 1, priceTotal: 11000</p>', 40500, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Chad', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:11:23', '2022-06-25 03:11:23'),
-('20220625101154', '<p>1 - Bầu, price: 11000, quantity: 1, priceTotal: 11000</p><p>2 - Bí đỏ, price: 21000, quantity: 1, priceTotal: 21000</p>', 32000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Cabo Verde', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:12:00', '2022-06-25 03:12:00'),
-('20220625101245', '<p>1 - Bí đỏ, price: 21000, quantity: 1, priceTotal: 21000</p>', 21000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Congo (the Democratic Republic of the)', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:12:51', '2022-06-25 03:12:51'),
-('20220625101339', '<p>1 - Bông súng, price: 13000, quantity: 1, priceTotal: 13000</p><p>2 - Cà chua bi, price: 8000, quantity: 1, priceTotal: 8000</p>', 21000, 0, 'home', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Burundi', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 03:13:46', '2022-06-25 03:13:46'),
-('20220625170354', '<p>1 - Bầu, price: 11000, quantity: 1, priceTotal: 11000</p><p>2 - Bí đỏ, price: 21000, quantity: 1, priceTotal: 21000</p>', 32000, 0, 'vnpay', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Congo (the)', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-06-25 10:04:05', '2022-06-25 10:04:05'),
-('20220625170412', '<p>1 - Bầu, price: 11000, quantity: 1, priceTotal: 11000</p><p>2 - Bí đỏ, price: 21000, quantity: 1, priceTotal: 21000</p>', 32000, 1, 'ATM(NCB)', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Burundi', 'Bà Rịa - Vũng Tàu/Châu Đức', '20220625170457', '2022-06-25 10:04:19', '2022-06-25 10:04:19'),
-('20220630102514', '<p>1 - Cà chua bi, price: 8000, quantity: 1, priceTotal: 8000</p><p>2 - Cải bó xôi, price: 32500, quantity: 1, priceTotal: 32500</p>', 40500, 1, 'ATM(NCB)', 'a v', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'Cameroon', 'Bà Rịa - Vũng Tàu/Châu Đức', '20220630102601', '2022-06-30 03:25:23', '2022-06-30 03:25:23');
+('20220709121257', '[{\"key\":0,\"foodName\":\"Bầu\",\"price\":\"11000\",\"quantity\":\"1\",\"totalPrice\":11000}]', 11000, 0, 'vnpay', 'Cường Mai Chấn', '382071075', 'Tân Long, Kim Long, Châu Đức, BRVT', 'm.contact@gmail.com', 'vn', '', '', '2022-07-09 05:13:17', '2022-07-09 05:13:17'),
+('20220709121324', '[{\"key\":0,\"foodName\":\"Bầu\",\"price\":\"11000\",\"quantity\":\"1\",\"totalPrice\":11000}]', 11000, 0, 'vnpay', 'a v', '382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 'mcc16122001@gmail.com', 'vn', 'Bà Rịa - Vũng Tàu/Châu Đức', '', '2022-07-09 05:13:50', '2022-07-09 05:13:50'),
+('20220709121703', '[{\"key\":0,\"foodName\":\"Bầu\",\"price\":\"11000\",\"quantity\":\"1\",\"totalPrice\":11000}]', 11000, 0, 'vnpay', 'Cường Mai Chấn', '382071075', 'Tân Long, Kim Long, Châu Đức, BRVT', 'm.contact@gmail.com', 'vn', ' ', '', '2022-07-09 05:17:08', '2022-07-09 05:17:08'),
+('20220709121713', '[{\"key\":0,\"foodName\":\"Bầu\",\"price\":\"11000\",\"quantity\":\"1\",\"totalPrice\":11000}]', 11000, 0, 'vnpay', 'Cường Mai Chấn', '382071075', 'Tân Long, Kim Long, Châu Đức, BRVT', 'm.contact@gmail.com', 'vn', 'BRVT', '', '2022-07-09 05:17:34', '2022-07-09 05:17:34'),
+('20220709132029', '[{\"key\":0,\"foodName\":\"Bầu\",\"price\":\"11000\",\"quantity\":\"1\",\"totalPrice\":11000},{\"key\":1,\"foodName\":\"Bắp mỹ\",\"price\":\"17000\",\"quantity\":\"1\",\"totalPrice\":17000}]', 28000, 1, 'ATM(NCB)', 'Cường Mai Chấn', '382071075', 'Tân Long, Kim Long, Châu Đức, BRVT', 'm.contact@gmail.com', 'vn', ' ', '20220709132059', '2022-07-09 06:20:35', '2022-07-09 06:20:35'),
+('20220710094954', '[{\"key\":0,\"foodName\":\"Bầu\",\"price\":\"11000\",\"quantity\":\"1\",\"totalPrice\":11000},{\"key\":1,\"foodName\":\"Bí đỏ\",\"price\":\"21000\",\"quantity\":\"1\",\"totalPrice\":21000},{\"key\":2,\"foodName\":\"Bắp mỹ\",\"price\":\"17000\",\"quantity\":\"1\",\"totalPrice\":17000},{\"key\":3,\"foodName\":\"Bắp cải\",\"price\":\"12500\",\"quantity\":\"1\",\"totalPrice\":12500}]', 61500, 1, 'ATM(NCB)', 'Cường Mai Chấn', '382071075', 'Tân Long, Kim Long, Châu Đức, BRVT', 'm.contact@gmail.com', 'vn', ' ', '20220710095047', '2022-07-10 02:49:59', '2022-07-10 02:49:59');
 
 -- --------------------------------------------------------
 
@@ -83,7 +78,7 @@ INSERT INTO `category` (`id`, `categoryName`, `categoryImage`, `createDate`, `up
 (1, 'Thịt tươi', 'meat.jpg', '2022-06-03 05:47:35', '2022-06-03 05:47:35'),
 (2, 'Trái cây', 'fruit.jpg', '2022-06-03 05:48:55', '2022-06-03 05:48:55'),
 (3, 'Rau củ', 'vegetable.jpg', '2022-06-03 05:48:55', '2022-06-03 05:48:55'),
-(4, 'Hải sản tươi', 'seafood.jpg', '2022-06-03 05:48:55', '2022-06-03 05:48:55');
+(4, 'Hải sản tươi', 'seafood.jpg', '2022-06-03 05:48:55', '2022-07-02 04:37:39');
 
 -- --------------------------------------------------------
 
@@ -93,12 +88,13 @@ INSERT INTO `category` (`id`, `categoryName`, `categoryImage`, `createDate`, `up
 
 CREATE TABLE `customer` (
   `id` int(11) NOT NULL,
-  `fullName` varchar(20) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `firstname` varchar(20) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `lastname` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `email` text COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `phone` varchar(10) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `address` varchar(200) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `sex` tinyint(1) NOT NULL DEFAULT 0,
-  `username` varchar(20) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `gender` tinyint(1) NOT NULL DEFAULT 0,
+  `username` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `password` text COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `token` text COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `createDate` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -109,8 +105,10 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`id`, `fullName`, `email`, `phone`, `address`, `sex`, `username`, `password`, `token`, `createDate`, `updateDate`) VALUES
-(1, 'Mai Chấn Cường', 'm.contact@gmail.com', '382071075', 'Tân Long, Kim Long, Châu Đức, BRVT', 0, 'cuong', '123456', '', '2022-06-07 01:56:24', '2022-06-07 01:56:24');
+INSERT INTO `customer` (`id`, `firstname`, `lastname`, `email`, `phone`, `address`, `gender`, `username`, `password`, `token`, `createDate`, `updateDate`) VALUES
+(1, 'Cường', 'Mai Chấn', 'm.contact@gmail.com', '382071075', 'Tân Long, Kim Long, Châu Đức, BRVT', 0, 'cuong', '123456', '', '2022-06-07 01:56:24', '2022-06-07 01:56:24'),
+(2, 'Cường', 'Mai', 'mcc16122001@gmail.com', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 0, 'cuong1612', '123456', '', '2022-07-09 16:16:23', '2022-07-09 16:16:23'),
+(3, 'a', 'v', 'mcc16122001@gmail.com', '0382071075', 'Tổ 84, thôn Tân Long, xã Kim Long, huyện Châu Đức, Bà Rịa - Vũng Tàu', 0, 'mcc16122001@gmail.co', '123', '', '2022-07-09 16:17:30', '2022-07-09 16:17:30');
 
 -- --------------------------------------------------------
 
@@ -235,13 +233,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

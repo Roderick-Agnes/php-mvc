@@ -36,13 +36,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="checkbox">
                                         <label><input type="checkbox" value="" class="mr-2"> I have read and accept the terms and conditions</label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <p><a href="javascript:void(0)" onclick="handlePayment()" class="btn btn-primary py-3 px-4">Place an order</a></p>
                         </div>
                     </div>

@@ -285,4 +285,19 @@ class Admin extends Controller
             'listOrder' => $order->getOrderList()
         ]);
     }
+    function DeleteOrderById()
+    {
+        $order = $this->model("Bill");
+
+        $id = isset($_POST['id']) ? $_POST['id'] : -1;
+        if ($id == -1) {
+            echo json_encode('Order not found');
+        } else {
+            $order->deleteOrderById($id);
+            echo json_encode(array(
+                "status" => 'success',
+                "status_code" => '200'
+            ));
+        }
+    }
 }

@@ -72,4 +72,9 @@ class Bill
     {
         execute($query);
     }
+    public function deleteOrderById($id)
+    {
+        $query = "DELETE FROM `bill` WHERE id = " . $id;
+        return execute($query);
+    }
 }

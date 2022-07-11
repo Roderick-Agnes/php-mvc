@@ -2,15 +2,6 @@
 require_once "./mvc/config/dbhelper.php";
 class Category
 {
-    private $id;
-    private $categoryName;
-    private $categoryImage;
-    private $createDate;
-    private $updateDate;
-
-    private $conn;
-
-
     public function getCategoryList($isSingleRecord = false)
     {
         $query = "SELECT * FROM category";

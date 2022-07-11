@@ -17,6 +17,9 @@ class Cart extends Controller
     }
     function Checkout()
     {
+        if (!isset($_SESSION['greenfood_user'])) {
+            Header('Location: ' . BASE_URL . "auth/login");
+        }
         // Call Views
         $this->view("layoutRoot", [
             "Page" => "checkout"

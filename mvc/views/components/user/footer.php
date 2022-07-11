@@ -617,3 +617,79 @@
 
     }
 </script>
+<script type="text/javascript">
+    // Set a Cookie
+    function setCookie(cName, cValue, expDays) {
+        let date = new Date();
+        date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = cName + "=" + cValue + "; " + expires + "; path=/";
+    }
+
+    function getCookie(cName) {
+        const name = cName + "=";
+        const cDecoded = decodeURIComponent(document.cookie); //to be careful
+        const cArr = cDecoded.split('; ');
+        let res;
+        cArr.forEach(val => {
+            if (val.indexOf(name) === 0) res = val.substring(name.length);
+        })
+        return res;
+    }
+
+    function formatCookie(cookie) {
+        let rs = '';
+        for (let i = 0; i < cookie.length; i++) {
+            if (i != 0 && i != cookie.length - 1) {
+                rs += cookie[i];
+            }
+        }
+        return rs;
+    }
+
+    function delete_cookie(name) {
+        document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+    console.log('cookie: ' + getCookie('greenfood_user'));
+    const handleLogout = () => {
+        // // delete_cookie('greenfood_user');
+        // setCookie('old_token_greenfood_user', formatCookie(getCookie('greenfood_user')), 3);
+        // setCookie('greenfood_user', '', 3);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $base_url ?>" + "Auth/handleLogout",
+            cache: false
+        });
+        window.location.reload();
+
+    }
+    const handleLogin = () => {
+        let cookie = getCookie('old_token_greenfood_user');
+        window.location.href = "<?php echo $base_url ?>" + "auth/login";
+
+        // if (cookie || cookie != '') {
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "<?php echo $base_url ?>" + "Auth/handleLoginWithToken",
+        //         data: {
+        //             token: cookie
+        //         },
+        //         cache: false,
+        //         success: function(response) {
+        //             const res = JSON.parse(response);
+        //             if (res.status_code == 200) {
+        //                 console.log('login with token ok');
+        //                 // Apply setCookie
+        //                 setCookie('greenfood_user', res.token, 3);
+        //                 window.location.href = "<?php echo $base_url ?>";
+
+        //             } else {
+        //                 window.location.href = "<?php echo $base_url ?>" + "auth/login";
+
+        //             }
+        //         },
+
+        //     });
+        // }
+    }
+</script>

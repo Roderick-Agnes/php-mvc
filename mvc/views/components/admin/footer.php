@@ -28,6 +28,12 @@
     // CKFinder.setupCKEditor(editor);
 </script>
 <script type="text/javascript">
+    $(document).ready(function(e) {
+        handleUpdateCategory();
+        handleUpdateFood();
+    });
+
+
     const handleClearTextArea = () => {
         document.getElementById('foodDesc').value = ''
     }
@@ -142,12 +148,16 @@
                             <div class="input-group mb-3">
                                 <label class="input-group-text" for="inputGroupSelect01">Category</label>
                                 <select class="form-select form-control" name="categoryId" id="selecterCategory">
-                                    <option value='` + item.categoryId + `'>` + categoryName + `</option>
-                                    <?php
-                                    foreach ($data['listCategory'] as $key => $item) {
-                                        echo "<option value='" . $item['id'] . "'>" . $item['categoryName'] . "</option>";
-                                    }
-                                    ?>
+                                    <option value='` + item.categoryId + `'>` + categoryName + `</option>` +
+                        +
+                        `<?php
+                            if (array_key_exists('listCategory', $data)) {
+                                foreach ($data['listCategory'] as $key => $item) {
+                                    echo "<option value='" . $item['id'] . "'>" . $item['categoryName'] . "</option>";
+                                }
+                            }
+
+                            ?>` + `
                                 </select>
                             </div>
                             <div class="input-group mb-3">
@@ -216,7 +226,7 @@
         const swalWithBootstrapButtons = getSwalInstance();
         swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
-            text: "You will not be able to recover this cart!",
+            text: "You will not be able to recover this item!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!',
@@ -324,15 +334,54 @@
         }));
     }
 
-    $(document).ready(function(e) {
-        handleUpdateCategory();
-        handleUpdateFood();
-    });
-</script>
-
-<!-- handle order -->
-<script type="text/javascript">
+    // handle order
     const handleDeleteOrderById = (id) => {
+        const swalWithBootstrapButtons = getSwalInstance();
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You will not be able to recover this item!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $base_url ?>" + "Admin/DeleteOrderById",
+                    data: {
+                        id: id
+                    },
+                    cache: false,
+                    success: function await (data) {
+                        const res = JSON.parse(data);
+                        if (res.status_code == '200') {
+                            handleDeleteRowDataTable(id);
+                        }
+                        console.log('delete order: ' + res.status);
+                    }
+                });
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Order item has been deleted.',
+                    'success'
+                );
 
+                //show toaster
+                tata.success(`Delete order`, `Delete order with id: ` + id + ` successfully`, {
+                    position: 'tr'
+                });
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your product is safe :)',
+                    'error'
+                )
+            }
+        })
     }
 </script>

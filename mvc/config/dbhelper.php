@@ -40,19 +40,6 @@ function executeResult($sql, $isSingleRecord = false)
 	}
 
 
-	/**
-	 * TH: param2 = 1
-	 * $row = [
-	 * 		'id' => 1,
-	 * 		'title' => '1 - Android Tivi Sony 4K 55 inch KD-55X8000H',
-	 * 		'thumbnail' => '12321',
-	 * 		...
-	 * ];
-	 *
-	 * TH: param2 = 2
-	 * $row = [1, '1 - Android Tivi Sony 4K 55 inch KD-55X8000H', '12321', ...];
-	 */
-
 	//Dong ket noi database
 	mysqli_close($conn);
 

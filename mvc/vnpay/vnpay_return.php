@@ -80,6 +80,7 @@ $main_js_url = $base_url . $js_url;
             <p>Your order create successfully.</p><br /> Please check your email or phone within the next 2 days!<br />
             Back to index after
             <span id='countDown2'></span>...
+
         </div>
     <?php
     } else {

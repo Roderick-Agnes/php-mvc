@@ -35,12 +35,12 @@
                             echo '<td>' . $item['id'] . '</td>';
                             echo '<td>' . $showList . '</td>';
                             echo '<td>' . number_format($item['totalPrice'], 0, '', ',') . ' vnd</td>';
-                            echo ($item['paymentStatus'] == 1) ? '<td><span class="badge bg-danger text-white">null</span></td>' : '<td><span class="badge bg-success text-white">Success</span></td>';
+                            echo ($item['paymentStatus'] == 0) ? '<td><span class="badge bg-danger text-white">null</span></td>' : '<td><span class="badge bg-success text-white">Success</span></td>';
                             echo '<td>' . $item['paymentMethod'] . '</td>';
                             echo '<td>' . $item['customerName'] . '</td>';
                             echo '<td>' . $item['createDate'] . '</td>';
 
-                            echo "<td><a href='javascript:void(0)' onclick='handleShowModalUpdateOrder(" . $item['id'] . ")' class='btn btn-outline-primary btn-sm btn-rounded'>Edit</a></td><td><a href='javascript:void(0)' onclick='handleDeleteOrderById(" . $item['id'] . ")' class='btn btn-outline-danger btn-sm btn-rounded'>Delete</a></td>";
+                            echo "<td><a href='javascript:void(0)' onclick='handleDeleteOrderById(\"" . $item['id'] . "\")' class='btn btn-outline-danger btn-sm btn-rounded'>Delete</a></td>";
                             echo '</tr>';
                         }
                         ?>

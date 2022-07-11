@@ -9,12 +9,11 @@ class Home extends Controller
         require_once "./mvc/models/Food.php";
         require_once "./mvc/models/Category.php";
         //Call Models
-        $db = new Database();
-        $food = new Food($db);
+        $food = new Food();
 
         $foodList = $food->getFoodList();
 
-        $category = new Category($db);
+        $category = new Category();
         $categoryList = $category->getCategoryList(true);
 
         //$foodList = $this->model("Food");
