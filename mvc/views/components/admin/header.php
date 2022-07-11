@@ -6,7 +6,7 @@ header('Access-Control-Max-Age: 1000');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
 
 $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['SERVER_NAME'] . "/" . "php-mvc/";
-$assets_url = "mvc/libs/assets/";
+$assets_url = "public/assets/admin/";
 
 $_SESSION['Cart'] = null;
 ?>

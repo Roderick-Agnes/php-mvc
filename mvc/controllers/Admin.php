@@ -11,6 +11,20 @@ class Admin extends Controller
             'page' => 'index'
         ]);
     }
+    //login
+    function Login(){
+        $this->view("login-admin", []);
+    }
+    function VerifyAccount(){
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        echo json_encode(array(
+            'status' => 'Ok',
+            'status_code' => '200',
+            'message' => 'Login admin successful',
+            'data' => ''
+        ));
+    }
 
     //food
     function Food()
