@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 11, 2022 at 02:15 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th7 11, 2022 lúc 02:06 AM
+-- Phiên bản máy phục vụ: 10.4.24-MariaDB
+-- Phiên bản PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,33 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `greenfood`
+-- Cơ sở dữ liệu: `greenfood`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bill`
+-- Cấu trúc bảng cho bảng `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `fullname` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `password` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `admin`
+--
+
+INSERT INTO `admin` (`id`, `fullname`, `username`, `password`) VALUES
+(1, 'Mai Chấn Cường', 'cuong', '123456');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `bill`
 --
 
 CREATE TABLE `bill` (
@@ -45,7 +65,7 @@ CREATE TABLE `bill` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `bill`
+-- Đang đổ dữ liệu cho bảng `bill`
 --
 
 INSERT INTO `bill` (`id`, `foodList`, `totalPrice`, `paymentStatus`, `paymentMethod`, `customerName`, `customerPhone`, `customerAddress`, `customerEmail`, `customerCountry`, `customerCity`, `payDate`, `createDate`, `updateDate`) VALUES
@@ -59,7 +79,7 @@ INSERT INTO `bill` (`id`, `foodList`, `totalPrice`, `paymentStatus`, `paymentMet
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Cấu trúc bảng cho bảng `category`
 --
 
 CREATE TABLE `category` (
@@ -71,7 +91,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `category`
+-- Đang đổ dữ liệu cho bảng `category`
 --
 
 INSERT INTO `category` (`id`, `categoryName`, `categoryImage`, `createDate`, `updateDate`) VALUES
@@ -83,7 +103,7 @@ INSERT INTO `category` (`id`, `categoryName`, `categoryImage`, `createDate`, `up
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
+-- Cấu trúc bảng cho bảng `customer`
 --
 
 CREATE TABLE `customer` (
@@ -102,7 +122,7 @@ CREATE TABLE `customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `customer`
+-- Đang đổ dữ liệu cho bảng `customer`
 --
 
 INSERT INTO `customer` (`id`, `firstname`, `lastname`, `email`, `phone`, `address`, `gender`, `username`, `password`, `token`, `createDate`, `updateDate`) VALUES
@@ -113,7 +133,7 @@ INSERT INTO `customer` (`id`, `firstname`, `lastname`, `email`, `phone`, `addres
 -- --------------------------------------------------------
 
 --
--- Table structure for table `food`
+-- Cấu trúc bảng cho bảng `food`
 --
 
 CREATE TABLE `food` (
@@ -128,7 +148,7 @@ CREATE TABLE `food` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `food`
+-- Đang đổ dữ liệu cho bảng `food`
 --
 
 INSERT INTO `food` (`id`, `foodName`, `categoryId`, `price`, `foodDescription`, `foodImage`, `createDate`, `updateDate`) VALUES
@@ -192,51 +212,63 @@ INSERT INTO `food` (`id`, `foodName`, `categoryId`, `price`, `foodDescription`, 
 (64, 'Lườn cá hồi', 4, 32500, '<p>Là loại thực phẩm giàu chất dinh dưỡng và cực kỳ tốt cho sức khoẻ. Lườn cá hồi vừa dễ ăn, vừa mang vị ngậy béo vô cùng, lại giàu omega-3, protein,... tốt cho cơ thể. Lườn cá hồi tươi ngon,\r\nđược làm sạch cẩn thận, chỉ cần rửa sạch là có thể chế biến món ăn. Không chỉ ngon miệng mà cá hồi còn được biết đến là thực phẩm giàu dinh dưỡng và tốt cho sức khỏe. Ăn cá hồi giúp phòng tránh một số bệnh và đặc biệt có ích cho tim, da, tóc và não bộ con người.\r\nCá hồi là loại cá có chứa Omega-3 giàu EPA và DHA, protein cùng nhiều dưỡng chất thiết yếu khác như vitamin B, kali và selen,... đều là những dưỡng chất cần thiết cho cơ thể. Nếu muốn sở hữu làn da trắng sáng và mịn màng hơn ngay từ bên trong thì cá hồi chính là sự lựa chọn tốt nhất cho bạn.\r\nCác chất chống ôxy hóa carotenoid trong cá hồi có thể làm giảm đáng kể ảnh hưởng của các gốc tự do gây hại, gây lão hóa cho da. Lườn cá hồi nằm ở phần bụng cá, có vị béo, mềm, được mọi người rất yêu thích.</p>', 'luoncahoi.jpg', '2022-06-02 22:48:55', '2022-06-02 22:48:55');
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `bill`
+-- Chỉ mục cho bảng `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `bill`
 --
 ALTER TABLE `bill`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `category`
+-- Chỉ mục cho bảng `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `customer`
+-- Chỉ mục cho bảng `customer`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `food`
+-- Chỉ mục cho bảng `food`
 --
 ALTER TABLE `food`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT cho bảng `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `customer`
+-- AUTO_INCREMENT cho bảng `customer`
 --
 ALTER TABLE `customer`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `food`
+-- AUTO_INCREMENT cho bảng `food`
 --
 ALTER TABLE `food`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
