@@ -4,10 +4,9 @@
 $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['SERVER_NAME'] . "/" . "php-mvc/";
 $assets_url = "public/assets/admin/";
 header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Credentials: true");
-header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
+
 ?>
+
 <head>
 
     <meta charset="utf-8">
@@ -20,9 +19,7 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Autho
 
     <!-- Custom fonts for this template-->
     <link href="<?php echo $base_url . $assets_url ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="<?php echo $base_url . $assets_url ?>css/sb-admin-2.css" rel="stylesheet">
@@ -50,13 +47,10 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Autho
                                     </div>
                                     <form class="user" method='POST' id='adminLoginForm'>
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
-                                                id="username" aria-describedby="emailHelp"
-                                                placeholder="Enter username...">
+                                            <input type="text" class="form-control form-control-user" id="username" aria-describedby="emailHelp" placeholder="Enter username...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="password" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user" id="password" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -69,9 +63,9 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Autho
                                         <button type='button' onclick="handleVerifyAccount()" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
-                                        
+
                                     </form>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -96,26 +90,30 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Autho
 
     <script type="text/javascript">
         function handleVerifyAccount() {
-            alert('ee');
             const username = document.getElementById('username');
             const password = document.getElementById('password');
             const message = document.getElementById('messageLogin');
 
             $.ajax({
-                    type: 'POST',
-                    url: '<?php echo $base_url ?>Admin/VerifyAccount',
-                    data: {
-                        username: username,
-                        password: password,
-                    },
-                    success: function(response) {
-                        const res = JSON.parse(response);
-                        if (res.status_code == 200) {
-                            console.log('message: ' + res.message);
-                            // window.location.href = "<php echo $base_url ?>" + "admin";
-                        }
+                type: 'POST',
+                url: '<?php echo $base_url ?>Admin/VerifyAccount',
+                data: {
+                    username: username.value,
+                    password: password.value,
+                },
+                success: function(response) {
+                    const res = JSON.parse(response);
+                    if (res.status_code == 200) {
+                        console.log('message: ' + res.message);
+                        window.location.href = "<?php echo $base_url ?>" + "admin";
+                    } else {
+                        console.log('message: ' + res.message);
+                        message.innerHTML = `
+                            <div id="main-message" class="text-danger pb-2">` + res.message + `</div>
+                        `;
                     }
-                });
+                }
+            });
         }
     </script>
 </body>

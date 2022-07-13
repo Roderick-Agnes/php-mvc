@@ -9,12 +9,14 @@
 <!-- Custom scripts for all pages-->
 <script src="<?php echo $base_url . $assets_url ?>js/sb-admin-2.min.js?v=<?php echo time(); ?>"></script>
 
-<!-- Page level plugins -->
-<script src="<?php echo $base_url . $assets_url ?>vendor/chart.js/Chart.min.js?v=<?php echo time(); ?>"></script>
+
+
 
 <!-- Page level custom scripts -->
-<script src="<?php echo $base_url . $assets_url ?>js/demo/chart-area-demo.js?v=<?php echo time(); ?>"></script>
-<script src="<?php echo $base_url . $assets_url ?>js/demo/chart-pie-demo.js?v=<?php echo time(); ?>"></script>
+<!-- <script src="<php echo $base_url . $assets_url ?>js/demo/chart-area-demo.js"></script>
+<script src="<php echo $base_url . $assets_url ?>js/demo/chart-pie-demo.js"></script> -->
+<!-- Page level plugins -->
+<script src="<?php echo $base_url . $assets_url ?>vendor/chart.js/Chart.min.js"></script>
 
 <script src="<?php echo $base_url . $assets_url ?>vendor/datatables/jquery.dataTables.min.js?v=<?php echo time(); ?>"></script>
 <script src="<?php echo $base_url . $assets_url ?>vendor/datatables/dataTables.bootstrap4.min.js?v=<?php echo time(); ?>"></script>
@@ -29,8 +31,13 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function(e) {
-        handleUpdateCategory();
-        handleUpdateFood();
+        const foodUrl = new URL("<?php echo $base_url . 'admin/food' ?>");
+
+        if (window.location.href == foodUrl.toString()) {
+            handleUpdateCategory();
+            handleUpdateFood();
+        }
+
     });
 
 
@@ -383,5 +390,282 @@
                 )
             }
         })
+    }
+    const handleChangeStatusOrderById = (id) => {
+        const buttonChange = document.getElementById('changerButton-' + id);
+        const buttonDel = document.getElementById('buttonChange-' + id);
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $base_url ?>" + "Admin/ChangeStatusOrder",
+            cache: false,
+            data: {
+                id: id
+            },
+            success: function(response) {
+                const res = JSON.parse(response);
+                console.log('status: ' + res);
+                if (res.status == 'Ok') {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+    const handleLogout = () => {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $base_url ?>" + "Admin/Logout",
+            cache: false
+
+        });
+        window.location.href = "<?php echo $base_url ?>" + "admin/login";
+    }
+</script>
+<!-- //chart resize -->
+<!-- <script>
+    $(window).load(function() {
+        $(window).resize(function() {
+            $('#myAreaChart').closest('.chart-container').css('width', $('#myAreaChart').closest('section').width());
+        });
+    });
+</script> -->
+
+<script type="text/javascript">
+    $(document).ready(function(e) {
+        const dashboarhUrl = new URL("<?php echo $base_url . 'admin' ?>");
+
+        if (window.location.href == dashboarhUrl.toString()) {
+            autoLoadData();
+            //countDown(5);
+
+        }
+    });
+    const FormatMoney = (money) => {
+        return money.toLocaleString('it-IT', {
+            style: 'currency',
+            currency: 'VND'
+        });
+    }
+    const countDown = (time) => {
+        var timeleft = time;
+        var downloadTimer = setInterval(function() {
+            if (timeleft <= 0) {
+                clearInterval(downloadTimer);
+            }
+            timeleft -= 1;
+            if (timeleft == 0) {
+                autoLoadData();
+                timeleft = time;
+            }
+        }, 1000);
+
+    }
+
+
+
+    const FilterData = (order_data, typeDefault = 'month', timeDefault = null) => {
+        var defaultDate = new Date();
+        var endDate = new Date("2022-07-14 00:00:00");
+
+        var resultProductData = order_data.filter(a => {
+            var date = new Date(a.createDate);
+            if (typeDefault == 'month') {
+                if (timeDefault == null) {
+                    return (date.getMonth() + 1 == defaultDate.getMonth() + 1);
+                } else {
+                    return (date.getMonth() + 1 == timeDefault);
+                }
+            } else if (typeDefault == 'year') {
+                if (timeDefault == null) {
+                    return (date.getFullYear() == defaultDate.getFullYear());
+                } else {
+                    return (date.getFullYear() == timeDefault);
+                }
+
+            }
+        });
+        return resultProductData;
+    }
+
+    const RandomRGBA = (defaultColorValue) => {
+        var o = Math.round,
+            r = Math.random,
+            s = 255;
+        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + defaultColorValue + ')';
+    }
+    const date = new Date();
+
+    let chartConfigs = {
+        title: 'Order Management In ' + (date.toLocaleString('en-us', {
+            month: 'short',
+            year: 'numeric'
+        })),
+        labels: [],
+        data: [],
+        backgroundColor: [],
+        borderColor: [],
+    };
+
+    let renderBarChart = () => {
+
+        if (localStorage.getItem('chart')) {
+            const data = JSON.parse(localStorage.getItem('chart'));
+            console.log(data);
+            let foods = [];
+            let arrayFood = [];
+            data.map(item => {
+                const foodList = JSON.parse(item.foodList);
+                foodList.map(food => {
+                    const f = {
+                        orderId: item.id,
+                        key: food.id,
+                        foodName: food.foodName,
+                        quantity: food.quantity,
+                        price: food.price
+                    }
+                    foods.push(f);
+
+                });
+            });
+
+            foods.map(item => {
+                const newFood = foods.filter(x => x.key === item.key);
+                foods = foods.filter(i => i.key !== item.key);
+                if (newFood.length > 0) {
+                    arrayFood.push(newFood);
+                }
+
+
+
+                //console.log();
+            });
+            // console.log(arrayFood);
+            let pr = 0;
+            arrayFood.map(item => {
+                item.map(x => {
+                    pr += parseInt(x.quantity * x.price);
+                });
+                chartConfigs.labels.push(item[0].foodName);
+                chartConfigs.data.push(pr);
+                chartConfigs.backgroundColor.push(RandomRGBA(0.2));
+                chartConfigs.borderColor.push(RandomRGBA(1));
+                pr = 0;
+            });
+
+
+
+
+        }
+        const myAreaChart = document.getElementById('myBarChart').getContext('2d');
+
+        let myChart = new Chart(myAreaChart, {
+            type: 'bar',
+            data: {
+                labels: chartConfigs.labels,
+                datasets: [{
+                    label: chartConfigs.title,
+                    data: chartConfigs.data,
+                    backgroundColor: chartConfigs.backgroundColor,
+                    borderColor: chartConfigs.borderColor,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'VND'
+                        }
+                    }],
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.yLabel.toLocaleString('it-IT', {
+                                style: 'currency',
+                                currency: 'VND'
+                            });
+                        }
+                    }
+                }
+            }
+        });
+
+    }
+    const autoLoadData = () => {
+        renderBarChart();
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $base_url ?>" + "Admin/GetEarningMonthly",
+            cache: false,
+            success: function(response) {
+                const order_data = JSON.parse(response);
+                const monthEarner = document.getElementById('monthEarner');
+                const yearEarner = document.getElementById('yearEarner');
+                const paymentStatus = document.getElementById('percentPayment');
+                const percentComplete = document.getElementById('percentComplete');
+
+                let monthEarning = 0;
+                let yearEarning = 0;
+                const currentDate = new Date();
+
+                let ordersByMonth = FilterData(order_data).filter(a => {
+
+                    if (a.paymentStatus != 0) {
+                        console.log('money: ' + a.totalPrice);
+                        monthEarning += parseInt(a.totalPrice);
+                        return this;
+                    }
+
+                });
+
+                localStorage.setItem('chart', JSON.stringify(ordersByMonth));
+
+                const allOrderLength = FilterData(order_data, 'year', currentDate.getFullYear()).length;
+
+                let ordersByYear = FilterData(order_data, 'year', currentDate.getFullYear()).filter(a => {
+                    if (a.paymentStatus != 0) {
+                        yearEarning += parseInt(a.totalPrice);
+                        return this;
+                    }
+                });
+
+                const percentPayment = ordersByYear.length / allOrderLength * 100;
+                // inner html
+                monthEarner.innerHTML = FormatMoney(monthEarning);
+                yearEarner.innerHTML = FormatMoney(yearEarning);
+                paymentStatus.innerHTML = percentPayment.toFixed(2) + '%';
+                percentComplete.style.width = percentPayment + '%';
+                percentComplete.setAttribute("aria-valuenow", percentPayment);
+                //console.log(ordersByMonth)
+
+            }
+        });
+    }
+
+    function addDataChart(chart, label, data) {
+        chart.data.labels.push(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(data);
+        });
+        chart.update();
+    }
+
+    function removeDataChart(chart) {
+        chart.data.labels.pop();
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+        chart.update();
     }
 </script>

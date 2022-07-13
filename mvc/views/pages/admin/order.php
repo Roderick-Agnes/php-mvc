@@ -31,6 +31,7 @@
                             foreach ($foodList as $food) {
                                 $showList .= ((int)($food['key']) + 1) . " - " . $food['foodName'] . ", price: " . number_format($food['price'], 0, '', '.') . " vnd, quantity: " . $food['quantity'] . ", total: " . number_format($food['totalPrice'], 0, '', '.') . " vnd</p>";
                             }
+                            $button = $item['paymentStatus'] == 0 ? "btn-outline-warning" : "btn-outline-success";
                             echo '<tr id="tr-item-' . $item['id'] . '">';
                             echo '<td>' . $item['id'] . '</td>';
                             echo '<td>' . $showList . '</td>';
@@ -41,6 +42,7 @@
                             echo '<td>' . $item['createDate'] . '</td>';
 
                             echo "<td><a href='javascript:void(0)' onclick='handleDeleteOrderById(\"" . $item['id'] . "\")' class='btn btn-outline-danger btn-sm btn-rounded'>Delete</a></td>";
+                            echo "<td id='changerButton-'" . $item['id'] . "><span id='buttonChange-'" . $item['id'] . "><a  href='javascript:void(0)' onclick='handleChangeStatusOrderById(\"" . $item['id'] . "\")' class='btn " . $button . " btn-sm btn-rounded'>Change</a></span></td>";
                             echo '</tr>';
                         }
                         ?>

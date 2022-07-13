@@ -6,7 +6,7 @@ $_SESSION['CategoryList'] = $data['CategoryList'];
 <?php require_once "./mvc/views/components/user/slider.php" ?>
 <?php require_once "./mvc/views/components/user/category.php" ?>
 
-<section class="ftco-section">
+<section class="ftco-section" id='gioiThieu'>
     <div class="container">
         <div class="row justify-content-center mb-3 pb-3">
             <div class="col-md-12 heading-section text-center ftco-animate">
@@ -34,7 +34,7 @@ $_SESSION['CategoryList'] = $data['CategoryList'];
     </div>
 
 
-    <section class="ftco-section testimony-section">
+    <section class="ftco-section testimony-section" id='phanHoi'>
         <div class="container">
             <div class="row justify-content-center mb-5 pb-3">
                 <div class="col-md-7 heading-section ftco-animate text-center">
@@ -49,7 +49,7 @@ $_SESSION['CategoryList'] = $data['CategoryList'];
                     <div class="owl-carousel">
                         <div class="slider-card">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/assets/images/nhon.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/assets/images/user1.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <em class="icon-quote-left"></em>
                                     </span>
@@ -57,14 +57,14 @@ $_SESSION['CategoryList'] = $data['CategoryList'];
                                 <div class="text text-center">
                                     <p class="mb-5 pl-4 line">Sản phẩm tốt chất lượng cao Sản phẩm tốt chất lượng cao
                                         Sản phẩm tốt chất lượng cao </p>
-                                    <p class="name">Thanh Nhon</p>
+                                    <p class="name">Charles</p>
                                     <span class="position">Developer-Frontend</span>
                                 </div>
                             </div>
                         </div>
                         <div class="slider-card">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/assets/images/nhon.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/assets/images/user2.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <em class="icon-quote-left"></em>
                                     </span>
@@ -72,14 +72,14 @@ $_SESSION['CategoryList'] = $data['CategoryList'];
                                 <div class="text text-center">
                                     <p class="mb-5 pl-4 line">Sản phẩm tốt chất lượng cao Sản phẩm tốt chất lượng cao
                                         Sản phẩm tốt chất lượng cao </p>
-                                    <p class="name">Thanh Nhon</p>
+                                    <p class="name">GoodBoy</p>
                                     <span class="position">Developer-Frontend</span>
                                 </div>
                             </div>
                         </div>
                         <div class="slider-card">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/assets/images/nhon.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/assets/images/user3.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <em class="icon-quote-left"></em>
                                     </span>
@@ -87,14 +87,14 @@ $_SESSION['CategoryList'] = $data['CategoryList'];
                                 <div class="text text-center">
                                     <p class="mb-5 pl-4 line">Sản phẩm tốt chất lượng cao Sản phẩm tốt chất lượng cao
                                         Sản phẩm tốt chất lượng cao </p>
-                                    <p class="name">Thanh Nhon</p>
+                                    <p class="name">Thegirl</p>
                                     <span class="position">Developer-Frontend</span>
                                 </div>
                             </div>
                         </div>
                         <div class="slider-card">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/assets/images/nhon.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/assets/images/user4.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <em class="icon-quote-left"></em>
                                     </span>
@@ -102,7 +102,7 @@ $_SESSION['CategoryList'] = $data['CategoryList'];
                                 <div class="text text-center">
                                     <p class="mb-5 pl-4 line">Sản phẩm tốt chất lượng cao Sản phẩm tốt chất lượng cao
                                         Sản phẩm tốt chất lượng cao </p>
-                                    <p class="name">Thanh Nhon</p>
+                                    <p class="name">Goodvibes</p>
                                     <span class="position">Developer-Frontend</span>
                                 </div>
                             </div>

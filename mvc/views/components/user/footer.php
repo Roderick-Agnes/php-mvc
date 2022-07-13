@@ -1,25 +1,3 @@
-<section class="ftco-section ftco-partner">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm ftco-animate">
-                <a href="#" class="partner"><img src="<?php echo $base_url . $assets_url ?>images/partner-1.png" class="img-fluid" alt="Colorlib Template"></a>
-            </div>
-            <div class="col-sm ftco-animate">
-                <a href="#" class="partner"><img src="<?php echo $base_url . $assets_url ?>images/partner-2.png" class="img-fluid" alt="Colorlib Template"></a>
-            </div>
-            <div class="col-sm ftco-animate">
-                <a href="#" class="partner"><img src="<?php echo $base_url . $assets_url ?>images/partner-3.png" class="img-fluid" alt="Colorlib Template"></a>
-            </div>
-            <div class="col-sm ftco-animate">
-                <a href="#" class="partner"><img src="<?php echo $base_url . $assets_url ?>images/partner-4.png" class="img-fluid" alt="Colorlib Template"></a>
-            </div>
-            <div class="col-sm ftco-animate">
-                <a href="#" class="partner"><img src="<?php echo $base_url . $assets_url ?>images/partner-5.png" class="img-fluid" alt="Colorlib Template"></a>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
     <div class="container py-4">
         <div class="row d-flex justify-content-center py-5">
@@ -202,7 +180,7 @@
             localStorage.setItem('cart', JSON.stringify(cart));
 
             //show toaster
-            tata.success(`${data.foodName}`, `Add '${data.foodName}' successfully`, {
+            tata.success(`${data.foodName}`, `Đã thêm '${data.foodName}' vào giỏ hàng của bạn`, {
                 position: 'tr'
             });
         }
@@ -593,7 +571,9 @@
                 if (result.status_code == 200) {
                     console.log(" orderId: " + orderId);
                     if (paymentMethod == 'home') {
+                        localStorage.setItem('cart', '');
                         window.location.href = "<?php echo $base_url ?>" + "mvc/vnpay/vnpay_return.php?payAtHome=true";
+
                     } else {
                         $.ajax({
                             type: "POST",

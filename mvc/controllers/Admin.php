@@ -2,28 +2,63 @@
 //require models
 require_once "./mvc/models/Food.php";
 require_once "./mvc/models/Category.php";
+require_once "./mvc/models/AdminAccount.php";
 
 class Admin extends Controller
 {
     function Index()
     {
-        $this->view("layoutAdmin", [
-            'page' => 'index'
-        ]);
+        if (!isset($_SESSION['greenfood_admin']) || $_SESSION['greenfood_admin'] == null) {
+            $this->view("login-admin", []);
+        } else {
+            $this->view("layoutAdmin", [
+                'page' => 'index'
+            ]);
+        }
     }
     //login
-    function Login(){
+    function Login()
+    {
         $this->view("login-admin", []);
     }
-    function VerifyAccount(){
+    function Logout()
+    {
+        $_SESSION['greenfood_admin'] = null;
+    }
+    function VerifyAccount()
+    {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        echo json_encode(array(
-            'status' => 'Ok',
-            'status_code' => '200',
-            'message' => 'Login admin successful',
-            'data' => ''
-        ));
+
+        $admin_account = new AdminAccount();
+
+        $isAdminAccountExist = $admin_account->isAdminAccountExist($username);
+        if ($isAdminAccountExist) {
+            $result = $admin_account->checkPassword($username, $password);
+            if ($result['status_code'] == '200') {
+                $_SESSION['greenfood_admin'] = $result['data'];
+                echo json_encode(array(
+                    'status' => 'Ok',
+                    'status_code' => '200',
+                    'message' => 'Login admin successful',
+                    'data' => $result['data']
+                ));
+            } else {
+                echo json_encode(array(
+                    'status' => 'Fail',
+                    'status_code' => '400',
+                    'message' => 'Password incorrect',
+                    'data' => ''
+                ));
+            }
+        } else {
+            echo json_encode(array(
+                'status' => 'Fail',
+                'status_code' => '400',
+                'message' => 'Admin\'s account not found',
+                'data' => ''
+            ));
+        }
     }
 
     //food
@@ -313,5 +348,38 @@ class Admin extends Controller
                 "status_code" => '200'
             ));
         }
+    }
+    function ChangeStatusOrder()
+    {
+        $order = $this->model("Bill");
+        $id = isset($_POST['id']) ? $_POST['id'] : -1;
+        if ($id == -1) {
+            echo json_encode(array(
+                "status" => 'Ok',
+                "status_code" => '200',
+                "message" => 'Order not found'
+            ));
+        } else {
+            $result = $order->changeStatusOrderById($id);
+            if ($result['status_code'] == 200) {
+                echo json_encode(array(
+                    "status" => 'Ok',
+                    "status_code" => '200',
+                    "message" => 'Order\'s status has been changed',
+                    "data" => $result['statusOrder']
+                ));
+            } else {
+                echo json_encode(array(
+                    "status" => $result['status'],
+                    "status_code" => $result['status_code'],
+                    "message" => $result['message']
+                ));
+            }
+        }
+    }
+    function GetEarningMonthly()
+    {
+        $order = $this->model("Bill");
+        echo json_encode($order->totalEarningMonthly(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 }
