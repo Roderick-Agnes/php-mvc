@@ -39,13 +39,30 @@
             <i class="fas fa-fw fa-list-ol"></i>
             <span>Category</span></a>
     </li>
-    <!-- Nav Item - Categories -->
+    <!-- Nav Item - Order -->
     <li class="nav-item">
         <a id="orders" class="nav-link collapsed" href="<?php echo $base_url . 'admin/order' ?>" data-target="#">
             <i class="fas fa-fw fa-money-bill"></i>
             <span>Orders</span></a>
     </li>
-
+    <!-- Nav Item - Account: customer & admin -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Accounts</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Account manager:</h6>
+                <a class="collapse-item" href="<?php echo $base_url . 'admin/customer' ?>"><i class="fas fa-fw fa-user"></i>
+                    <span>Customer</span>
+                </a>
+                <a class="collapse-item" href="<?php echo $base_url . 'admin/AdminAccount' ?>"><i class="fas fa-fw fa-user-cog"></i>
+                    <span>Admin</span>
+                </a>
+            </div>
+        </div>
+    </li>
 
 
     <!-- Divider -->

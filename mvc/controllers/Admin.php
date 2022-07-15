@@ -2,6 +2,7 @@
 //require models
 require_once "./mvc/models/Food.php";
 require_once "./mvc/models/Category.php";
+require_once "./mvc/models/Customer.php";
 require_once "./mvc/models/AdminAccount.php";
 
 class Admin extends Controller
@@ -381,5 +382,187 @@ class Admin extends Controller
     {
         $order = $this->model("Bill");
         echo json_encode($order->totalEarningMonthly(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    }
+    function Customer()
+    {
+        $customer = new Customer();
+        // Call Views
+        $this->view("layoutAdmin", [
+            'page' => 'customer',
+            'listCustomer' => $customer->getCustomerList()
+        ]);
+    }
+    function DeleteCustomer()
+    {
+        $customer = new Customer();
+
+        $id = isset($_POST['id']) ? $_POST['id'] : -1;
+        if ($id == -1) {
+            echo json_encode(array(
+                "status" => 'failed',
+                "status_code" => '404',
+                "message" => 'Customer not found'
+            ));
+        } else {
+            $customer->deleteCustomerById($id);
+            echo json_encode(array(
+                "status" => 'success',
+                "status_code" => '200',
+                "message" => 'Delete customer successfully'
+            ));
+        }
+    }
+    function GetCustomer()
+    {
+        $customer = new Customer();
+        $id = isset($_POST['id']) ? $_POST['id'] : -1;
+        if ($id == -1) {
+            echo json_encode(array(
+                "status" => 'error',
+                "status_code" => '404',
+                "data" => [],
+                "message" => 'Customer not found'
+            ));
+        } else {
+            $data = $customer->getCustomerById($id);
+            echo json_encode(array(
+                "status" => 'success',
+                "status_code" => '200',
+                "data" => $data,
+                "message" => 'Get Customer successfully'
+            ));
+        }
+    }
+    function UpdateCustomer()
+    {
+        //Call Models
+        $customer = new Customer();
+        $id = $_POST['customerId'];
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $email = $_POST['email'];
+        $address = $_POST['address'];
+        $phone = $_POST['phone'];
+        $gender = $_POST['gender'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $data = [
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address
+        ];
+
+        $customer->updateCustomerInfo($id, $firstname, $lastname, $email, $address, $phone, $gender, $username, $password);
+        echo json_encode(array(
+            'status' => 'Ok',
+            'status_code' => '200',
+            'message' => 'Update customer info successful',
+            'data' => $data
+        ));
+    }
+    function AdminAccount()
+    {
+        $a = new AdminAccount();
+        // Call Views
+        $this->view("layoutAdmin", [
+            'page' => 'admin_account',
+            'listAdminAccount' => $a->getAdminAccountList()
+        ]);
+    }
+    function CreateAdminAccount()
+    {
+        //Call Models
+        $a = new AdminAccount();
+        $fullname = $_POST['fullname'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $data = [
+            'fullname' => $fullname,
+            'username' => $username,
+            'password' => $password,
+        ];
+
+        $isAdminAccountExist = $a->isAdminAccountExist($username);
+        if ($isAdminAccountExist) {
+            echo json_encode(array(
+                'status' => 'Ok',
+                'status_code' => '409',
+                'message' => 'Username already exists',
+                'data' => ''
+            ));
+        } else {
+            $a->createNewAdminAccount($fullname, $username, $password);
+            echo json_encode(array(
+                'status' => 'Ok',
+                'status_code' => '200',
+                'message' => 'Create new admin account successful',
+                'data' => $data
+            ));
+        }
+    }
+    function DeleteAdminAccount()
+    {
+        $a = new AdminAccount();
+
+        $id = isset($_POST['id']) ? $_POST['id'] : -1;
+        if ($id == -1) {
+            echo json_encode(array(
+                "status" => 'failed',
+                "status_code" => '404',
+                "message" => 'Admin account not found'
+            ));
+        } else {
+            $a->deleteAdminAccountById($id);
+            echo json_encode(array(
+                "status" => 'success',
+                "status_code" => '200',
+                "message" => 'Delete admin account successfully'
+            ));
+        }
+    }
+    function GetAdminAccount()
+    {
+        $a = new AdminAccount();
+        $id = isset($_POST['id']) ? $_POST['id'] : -1;
+        if ($id == -1) {
+            echo json_encode(array(
+                "status" => 'error',
+                "status_code" => '404',
+                "data" => [],
+                "message" => 'Admin account not found'
+            ));
+        } else {
+            $data = $a->getAdminAccountById($id);
+            echo json_encode(array(
+                "status" => 'success',
+                "status_code" => '200',
+                "data" => $data,
+                "message" => 'Get Admin account successfully'
+            ));
+        }
+    }
+    function UpdateAdminAccount()
+    {
+        //Call Models
+        $a = new AdminAccount();
+        $id = $_POST['accId'];
+        $fullname = $_POST['fullname'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $data = [
+            'fullname' => $fullname,
+            'username' => $username,
+            'password' => $password,
+        ];
+
+        $a->updateAdminAccountInfo($id, $fullname, $username, $password);
+        echo json_encode(array(
+            'status' => 'Ok',
+            'status_code' => '200',
+            'message' => 'Update admin account successful',
+            'data' => $data
+        ));
     }
 }

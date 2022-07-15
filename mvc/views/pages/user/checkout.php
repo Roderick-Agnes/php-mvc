@@ -25,7 +25,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="radio">
-                                        <label><input type="radio" name="pay_radio" class="mr-2" value="home">Direct in home</label>
+                                        <label><input type="radio" name="pay_radio" class="mr-2" value="home" checked>Direct in home</label>
                                     </div>
                                 </div>
                             </div>

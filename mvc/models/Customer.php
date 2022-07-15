@@ -6,10 +6,8 @@ class Customer
 {
     public function getCustomerList()
     {
-        $stmt = $this->conn->prepare("SELECT * FROM customer");
-        $stmt->execute();
-
-        return $stmt;
+        $sql = "SELECT * FROM customer";
+        return executeResult($sql);
     }
     public function checkPassword($username, $password)
     {
@@ -79,6 +77,21 @@ class Customer
     public function updateToken($username, $token)
     {
         $sql = "UPDATE `customer` SET `token`='" . $token . "' WHERE username = '" . $username . "'";
+        execute($sql);
+    }
+    public function deleteCustomerById($id)
+    {
+        $sql = "DELETE FROM `customer` WHERE id = '" . $id . "'";
+        execute($sql);
+    }
+    public function getCustomerById($id)
+    {
+        $query = "SELECT * FROM `customer` WHERE id = " . $id;
+        return executeResult($query, true);
+    }
+    public function updateCustomerInfo($id, $firstname, $lastname, $email, $address, $phone, $gender, $username, $password)
+    {
+        $sql = "UPDATE `customer` SET `firstname`='{$firstname}',`lastname`='{$lastname}',`email`='{$email}',`phone`='{$phone}',`address`='{$address}',`gender`='{$gender}',`password`='{$password}',`updateDate`='" . date('YmdHis') . "' WHERE id = '" . $id . "'";
         execute($sql);
     }
 }

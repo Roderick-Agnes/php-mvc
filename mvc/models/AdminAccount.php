@@ -6,9 +6,7 @@ class AdminAccount
 {
     public function getAdminAccountList()
     {
-        $stmt = $this->conn->prepare("SELECT * FROM admin_account");
-        $stmt->execute();
-        return $stmt;
+        return executeResult("SELECT * FROM admin_account");
     }
     public function checkPassword($username, $password)
     {
@@ -47,5 +45,20 @@ class AdminAccount
             return true;
         }
         return false;
+    }
+    public function deleteAdminAccountById($id)
+    {
+        $query = "DELETE FROM `admin_account` WHERE id = " . $id;
+        return execute($query);
+    }
+    public function getAdminAccountById($id)
+    {
+        $query = "SELECT * FROM admin_account WHERE id = " . $id;
+        return executeResult($query, true);
+    }
+    public function updateAdminAccountInfo($id, $fullname, $username, $password)
+    {
+        $sql = "UPDATE `admin_account` SET `fullname`='{$fullname}',`password`='{$password}',`updateDate`='" . date('YmdHis') . "' WHERE id = '" . $id . "'";
+        execute($sql);
     }
 }

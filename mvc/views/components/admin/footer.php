@@ -1,4 +1,6 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- Bootstrap core JavaScript-->
+
 <script src="<?php echo $base_url . $assets_url ?>vendor/jquery/jquery.min.js?v=<?php echo time(); ?>"></script>
 <script src="<?php echo $base_url . $assets_url ?>vendor/bootstrap/js/bootstrap.bundle.min.js?v=<?php echo time(); ?>"></script>
 
@@ -614,6 +616,8 @@
                 const yearEarner = document.getElementById('yearEarner');
                 const paymentStatus = document.getElementById('percentPayment');
                 const percentComplete = document.getElementById('percentComplete');
+                const orderNumber = document.getElementById('orderNumber');
+
 
                 let monthEarning = 0;
                 let yearEarning = 0;
@@ -647,6 +651,8 @@
                 paymentStatus.innerHTML = percentPayment.toFixed(2) + '%';
                 percentComplete.style.width = percentPayment + '%';
                 percentComplete.setAttribute("aria-valuenow", percentPayment);
+
+                orderNumber.innerHTML = allOrderLength + ' orders';
                 //console.log(ordersByMonth)
 
             }
@@ -668,4 +674,345 @@
         });
         chart.update();
     }
+</script>
+
+<script>
+    const showModalAddCustomer = () => {
+        //show modal
+        $('#AddCustomerModal').modal('show');
+    }
+
+    const handleCreateCustomer = () => {
+        const firstname = document.getElementById('firstname');
+        const lastname = document.getElementById('lastname');
+        const email = document.getElementById('email');
+        const address = document.getElementById('address');
+        const phone = document.getElementById('phone');
+        const gender = document.getElementById('gender');
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        $.ajax({
+            url: '<?php echo $base_url ?>' + 'auth/createAccount',
+            type: "POST",
+            data: {
+                firstname: firstname.value,
+                lastname: lastname.value,
+                email: email.value,
+                address: address.value,
+                phone: phone.value,
+                gender: gender.value,
+                username: username.value,
+                password: password.value
+            },
+            cache: false,
+            success: function(data) {
+                let res = JSON.parse(data);
+                if (res.status_code == '200') {
+                    window.location.reload();
+                } else {
+                    tata.error(`Delete customer`, res.message, {
+                        position: 'tr'
+                    });
+                }
+            }
+        });
+    }
+    const handleDeleteCustomerById = (id) => {
+        const swalWithBootstrapButtons = getSwalInstance();
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You will not be able to recover this cart!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?php echo $base_url ?>' + 'Admin/DeleteCustomer',
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    cache: false,
+                    success: function(data) {
+                        let res = JSON.parse(data);
+                        if (res.status_code == '200') {
+                            handleDeleteRowDataTable(id);
+                        } else {
+                            //show toaster
+                            tata.error(`Delete customer`, `Delete customer with id: ` + id + ` failed`, {
+                                position: 'tr'
+                            });
+                        }
+                    }
+                });
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'customer has been deleted.',
+                    'success'
+                );
+
+                //show toaster
+                tata.success(`Delete customer`, `Delete customer with id: ` + id + ` successfully`, {
+                    position: 'tr'
+                });
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'customer is safe :)',
+                    'error'
+                )
+            }
+        })
+
+    }
+    const handleShowModalUpdateCustomer = (id) => {
+        const foodUpdateForm = document.getElementById('updateCustomerForm');
+        let item = {};
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $base_url ?>" + "Admin/GetCustomer",
+            data: {
+                id: id
+            },
+            cache: false,
+            success: function(data) {
+
+                let res = JSON.parse(data);
+                if (res.status_code == '200') {
+                    item = res.data;
+                    let gender = item.gender === 0 ? `<option value="0" selected>Male</option><option value="1">Female</option>` : `<option value="0">Male</option><option value="1" selected>Female</option>`;
+                    foodUpdateForm.innerHTML = `
+                    <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">ID:</span>
+                        <input type="text" class="form-control" name="customerId" id="customerId" value="` + item.id + `" aria-describedby="basic-addon3" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Firstname:</span>
+                        <input type="text" class="form-control" name="firstname" id="firstname" value="` + item.firstname + `" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Lastname:</span>
+                        <input type="text" class="form-control" name="lastname" id="lastname" value="` + item.lastname + `" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Email:</span>
+                        <input type="text" class="form-control" name="email" id="email" value="` + item.email + `" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Address:</span>
+                        <input type="text" class="form-control" name="address" id="address" value="` + item.address + `" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Phone:</span>
+                        <input type="text" class="form-control" name="phone" id="phone" value="` + item.phone + `" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Gender:</span>
+                        <select name="gender" id="gender" class="form-control">
+                            ` +
+                        gender +
+                        `
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Username:</span>
+                        <input type="text" class="form-control" name="username" id="username" value="` + item.username + `" aria-describedby="basic-addon3" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Password:</span>
+                        <input type="password" class="form-control" name="password" id="password" value="` + item.password + `" aria-describedby="basic-addon3">
+                    </div>
+                </div>
+                    `;
+                    //show modal
+                    $('#updateCustomerModal').modal('show');
+                }
+
+            }
+        });
+    }
+
+    $("#updateCustomer").on('submit', (function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: '<?php echo $base_url ?>' + 'Admin/UpdateCustomer',
+            type: "POST",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                let = item = {};
+                let res = JSON.parse(data);
+                if (res.status_code == '200') {
+                    window.location.reload();
+                } else {
+                    //show toaster
+                    tata.error(`Customer`, res.message, {
+                        position: 'tr'
+                    });
+                    console.log(res.message);
+                }
+            }
+        });
+    }));
+    const showModalAddAdminAccount = () => {
+        //show modal
+        $('#AddAdminAccountModal').modal('show');
+    }
+
+    const handleCreateAdminAccount = () => {
+        const fullname = document.getElementById('fullnameAdminAccount');
+        const username = document.getElementById('usernameAdminAccount');
+        const password = document.getElementById('passwordAdminAccount');
+        $.ajax({
+            url: '<?php echo $base_url ?>' + 'admin/CreateAdminAccount',
+            type: "POST",
+            data: {
+                fullname: fullname.value,
+                username: username.value,
+                password: password.value
+            },
+            cache: false,
+            success: function(data) {
+                let res = JSON.parse(data);
+                if (res.status_code == '200') {
+                    window.location.reload();
+                } else {
+                    tata.error(`Admin account`, res.message, {
+                        position: 'tr'
+                    });
+                }
+            }
+        });
+    }
+    const handleDeleteAdminAccountById = (id) => {
+        const swalWithBootstrapButtons = getSwalInstance();
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You will not be able to recover this cart!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?php echo $base_url ?>' + 'Admin/DeleteAdminAccount',
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    cache: false,
+                    success: function(data) {
+                        let res = JSON.parse(data);
+                        if (res.status_code == '200') {
+                            handleDeleteRowDataTable(id);
+                        } else {
+                            //show toaster
+                            tata.error(`Delete admin account`, `Delete admin account with id: ` + id + ` failed`, {
+                                position: 'tr'
+                            });
+                        }
+                    }
+                });
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Admin account has been deleted.',
+                    'success'
+                );
+
+                //show toaster
+                tata.success(`Delete admin account`, `Delete admin account with id: ` + id + ` successfully`, {
+                    position: 'tr'
+                });
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'customer is safe :)',
+                    'error'
+                )
+            }
+        })
+
+    }
+    const handleShowModalUpdateAdminAccount = (id) => {
+        const updateAdminAccountForm = document.getElementById('updateAdminAccountForm');
+        let item = {};
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $base_url ?>" + "Admin/GetAdminAccount",
+            data: {
+                id: id
+            },
+            cache: false,
+            success: function(data) {
+
+                let res = JSON.parse(data);
+                if (res.status_code == '200') {
+                    item = res.data;
+                    updateAdminAccountForm.innerHTML = `
+                    <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">ID:</span>
+                        <input type="text" class="form-control" name="accId" id="accId" value="` + item.id + `" aria-describedby="basic-addon3" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Firstname:</span>
+                        <input type="text" class="form-control" name="fullname" id="fullname" value="` + item.fullname + `" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Username:</span>
+                        <input type="text" class="form-control" name="username" id="username" value="` + item.username + `" aria-describedby="basic-addon3" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Password:</span>
+                        <input type="password" class="form-control" name="password" id="password" value="` + item.password + `" aria-describedby="basic-addon3">
+                    </div>
+                </div>
+                    `;
+                    //show modal
+                    $('#updateAdminAccountModal').modal('show');
+                }
+
+            }
+        });
+    }
+    $("#updateAdminAccount").on('submit', (function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: '<?php echo $base_url ?>' + 'Admin/UpdateAdminAccount',
+            type: "POST",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                let = item = {};
+                let res = JSON.parse(data);
+                if (res.status_code == '200') {
+                    window.location.reload();
+                } else {
+                    //show toaster
+                    tata.error(`Customer`, res.message, {
+                        position: 'tr'
+                    });
+                    console.log(res.message);
+                }
+            }
+        });
+    }));
 </script>
